@@ -6,10 +6,10 @@ require 'fabulist/version'
 Gem::Specification.new do |spec|
   spec.name          = "fabulist"
   spec.version       = Fabulist::VERSION
-  spec.authors       = ["Robert Schaefer"]
+  spec.authors       = ["Robert Schäfer"]
   spec.email         = ["rs@oxon.ch"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{ Fabulist provides a ubiquitous language to reference and interact with your domain models}
+  spec.summary       = %q{ Narrate, don't write cucumber step definitions}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -20,4 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "cucumber"
+
 end
