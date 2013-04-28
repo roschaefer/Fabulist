@@ -17,6 +17,5 @@ module Fabulist
     def i_am(object)
       Fabulist.narrator= object
     end
-
   end
 end

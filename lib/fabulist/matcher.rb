@@ -5,6 +5,7 @@ module Fabulist
       @memory = Fabulist.memory
       @adapter = @configuration.adapter_instance
       @model_name = @adapter.model_names.join('|')
+      puts @model_name
       counting_syllable = %w(st nd rd th).join('|')
     end
 
@@ -12,9 +13,13 @@ module Fabulist
 
   class CreateNewMatcher < Matcher
     def method_missing(method, *args, &block)
-      if method_name =~ /^(#{@model_name})$/
-        object = @adapter.create($1)
-        @memory.append(object)
+      unless @model_name.empty?
+        if method_name =~ /^(#{@model_name})$/
+          object = @adapter.create($1)
+          @memory.append(object)
+        else
+          super
+        end
       else
         super
       end
