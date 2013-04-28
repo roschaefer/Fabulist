@@ -3,7 +3,7 @@ module Fabulist
     def initialize
       @configuration = Fabulist.configuration
       @memory = Fabulist.memory
-      @adapter = @configuration.adapter
+      @adapter = @configuration.adapter_instance
       @model_name = @adapter.model_names.join('|')
       counting_syllable = %w(st nd rd th).join('|')
     end

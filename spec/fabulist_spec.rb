@@ -1,7 +1,12 @@
 require "fabulist"
+
 describe Fabulist do
+  before(:each) do
+    Fabulist.reset
+  end
+
   it "should complain, if he doesn't know what the narrator embodies" do
-    expect{ Fabulist.narrator }.to raise_error
+    expect{Fabulist.narrator}.to raise_error(RuntimeError, /Don't know who I am/)
   end
 
   it "should return the narrator, if specified beforehand" do
@@ -21,14 +26,14 @@ describe Fabulist do
   end
 
   describe ".config" do
-    it "should return a Fabulist::Configuration" do
+    it "should return the fabulist's configuration" do
       Fabulist.configure {}
       Fabulist.configuration.should be_kind_of(Fabulist::Configuration)
     end
   end
 
   describe ".memory" do
-    it "returns the fabulist's memory" do
+    it "should return the fabulist's memory" do
       Fabulist.memory.should be_kind_of(Fabulist::Memory)
     end
   end

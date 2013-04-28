@@ -10,6 +10,12 @@ module Fabulist
     end
 
     def create(model_type, attributes)
+      #subclass responsibility
+      raise NotImplementedError
+    end
+
+    def model_names
+      #subclass responsibility
       raise NotImplementedError
     end
 

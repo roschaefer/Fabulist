@@ -1,16 +1,15 @@
 require "fabulist/version"
-require "fabulist/matcher"
 require "fabulist/memory"
-require "fabulist/model_decorator"
 require "fabulist/configuration"
 require "fabulist/session"
+require "fabulist/adapter"
 
 module Fabulist
   # ---------------------
   # NARRATOR
   # ---------------------
   def self.narrator
-    raise "Don't know, who I am!" if @narrator.nil?
+    raise "Don't know who I am!" if @narrator.nil?
     @narrator
   end
 
@@ -31,6 +30,12 @@ module Fabulist
   def self.memory
     @memory ||= Fabulist::Memory.new
     @memory
+  end
+
+  def self.reset
+    @memory = nil
+    @configuration = nil
+    @narrator = nil
   end
 
 end

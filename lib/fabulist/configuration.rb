@@ -12,8 +12,8 @@ module Fabulist
       @adapter = adapter
     end
 
-    def adapter
-      @adapter ||= adapter_klass.new
+    def adapter_instance
+      @adapter_instance ||= adapter_klass.new
     end
 
     def adapter_klass

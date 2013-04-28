@@ -1,3 +1,4 @@
+require "fabulist/model_decorator"
 module Fabulist
   class Memory
 
