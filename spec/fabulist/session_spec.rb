@@ -31,4 +31,10 @@ describe Fabulist::Session do
       subject.a_new.should be_kind_of(Fabulist::CreateNewMatcher)
     end
   end
+
+  describe "#the" do
+    it "should return a AlreadyExistsMatcher" do
+      subject.the.should be_kind_of(Fabulist::AlreadyExistsMatcher)
+    end
+  end
 end

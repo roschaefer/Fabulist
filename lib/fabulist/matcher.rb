@@ -23,14 +23,14 @@ module Fabulist
 
 
   class AlreadyExistsMatcher < Matcher
-    def intialize(index)
-      super
+    def initialize(index=1)
+      super()
       @index = index
     end
 
     def method_missing(method, *args, &block)
       if method_name =~ /^#{COUNTING_SYLLABLE}$/
-        return memory.search_forwards
+        return memory.search_forwards(index)
       else
         super
       end

@@ -2,8 +2,8 @@ require 'fabulist/matcher'
 module Fabulist
   module Session
 
-    def the(index)
-      AlreadyThereMatcher.new
+    def the(index=1)
+      AlreadyExistsMatcher.new(index)
     end
 
     def a_new
