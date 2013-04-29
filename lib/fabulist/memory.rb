@@ -19,20 +19,20 @@ module Fabulist
       @list << object
     end
 
-    def search_forwards(index=1, options={})
-      search(@list, index, options)
+    def search_forwards(index=1, options={}, *args)
+      search(@list, index, options, *args)
     end
 
-    def search_backwards(index=1, options={})
-      search(@list.reverse, index, options)
+    def search_backwards(index=1, options={}, *args)
+      search(@list.reverse, index, options, *args)
     end
 
   private
-  def search(list, index=1, opt={})
+  def search(list, index=1, opt={}, *args)
     index -= 1
     result = list
     result = apply_class_check(result, opt[:class])
-    result = apply_condition(result, opt[:condition])
+    result = apply_condition(result, opt[:condition], *args)
     found  = result.at(index)
     raise "No object found" if found.nil?
     found

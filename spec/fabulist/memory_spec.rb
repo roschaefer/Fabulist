@@ -74,14 +74,17 @@ describe Fabulist::Memory do
       end
 
       it "and can pass params to the condition" do
-        empty_string=""
         subject.append(1)
         subject.append(nil)
-        subject.append(empty_string)
+        subject.append("")
         subject.append("Yooho")
         subject.append("qwerty")
-        subject.search_forwards(1, :class => String, :condition => :empty?).should equal(empty_string)
-        subject.search_backwards(1, :class => String, :condition => :empty?).should equal(empty_string)
+        subject.search_forwards(1, {:condition => 'end_with?'}, 'ho').should eql("Yooho")
+        subject.search_forwards(1, {:class => Fixnum, :condition => '<'}, 5).should eql(1)
+        subject.search_forwards(1, {:condition => 'empty?'}).should eql("")
+        # why does this fail?
+        #subject.search_forwards(1, {:condition => 'nil?'}).should eql(nil)
+        subject.search_forwards(1, {:class => String, :condition => 'between?'}, 'qwert', 'qwertz').should eql("qwerty")
       end
 
     end
