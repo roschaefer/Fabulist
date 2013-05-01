@@ -3,6 +3,9 @@ require 'spec_helper'
 describe Fabulist::Session do
 
 
+  let(:model_store) { mock }
+  let(:adapter) { mock }
+
   before(:each) do
     Fabulist.reset
   end
@@ -12,6 +15,8 @@ describe Fabulist::Session do
       include Fabulist::Session
     end
     session = sessionClass.new
+    session.stub(:adapter => adapter)
+    session.stub(:model_store => model_store)
     session
   end
 
@@ -30,9 +35,6 @@ describe Fabulist::Session do
   describe "#a_new" do
     it "should return a CreateNewMatcher" do
       subject.a_new.should be_kind_of(Fabulist::CreateNewMatcher)
-    end
-    it "should raise an exception, if can't recognize the model name" do
-      expect{subject.a_new.unkown_model_name}.to raise_exception{NoMethodError}
     end
   end
 

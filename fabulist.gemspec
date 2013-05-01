@@ -24,10 +24,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "cucumber"
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "factory_girl", "1.3.2"
+  spec.add_development_dependency "factory_girl"
   spec.add_development_dependency "activerecord"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "yard"
-  spec.add_development_dependency "rb-fsevent", '~> 0.9'
+  spec.add_development_dependency "activerecord-nulldb-adapter"
 
 end

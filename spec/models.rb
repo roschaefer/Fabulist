@@ -1,7 +1,6 @@
 require 'active_record'
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3",
-                                        :database  => ":memory:")
+ActiveRecord::Base.establish_connection(:adapter => :nulldb)
 orig_stdout = $stdout
 $stdout = File.new('/dev/null', 'w')
 ActiveRecord::Schema.define do
@@ -9,13 +8,7 @@ ActiveRecord::Schema.define do
     t.string :username
     t.string :email
   end
-
-  create_table :accounts do |t|
-    t.string :description
-    t.integer :owner_id
-  end
 end
 $stdout = orig_stdout
 
 require File.join(File.dirname(__FILE__), 'models', 'user')
-require File.join(File.dirname(__FILE__), 'models', 'account')

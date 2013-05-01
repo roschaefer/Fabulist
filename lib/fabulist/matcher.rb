@@ -1,22 +1,32 @@
 module Fabulist
   class Matcher
-    def initialize
-      @configuration = Fabulist.configuration
+    def initialize(memory=nil, adapter=nil)
+      @r = {}
       @memory = Fabulist.memory
-      @adapter = @configuration.adapter_instance
-      @model_name = @adapter.model_names.join('|')
-      puts @model_name
-      counting_syllable = %w(st nd rd th).join('|')
+      @adapter = Fabulist.configuration.adapter_instance
+      @r[:any_model] = @adapter.model_names.join('|')
+      @r[:counting_syllable] = %w(st nd rd th).join('|')
     end
 
+    def memory
+      @memory ||= Memory.new
+    end
+
+    def adapter
+      @adapter ||= Fabulist.configuration.adapter_instance
+    end
   end
 
-  class CreateNewMatcher < Matcher
+  class CreateNewMatcher < Fabulist::Matcher
+    def initialize
+      super
+    end
     def method_missing(method, *args, &block)
-      unless @model_name.empty?
-        if method_name =~ /^(#{@model_name})$/
-          object = @adapter.create($1)
-          @memory.append(object)
+      unless @r[:any_model].empty?
+        if method_name =~ /^(#{@r[:any_model]})$/
+          object = adapter.create($1)
+          memory.append(object)
+          object
         else
           super
         end
