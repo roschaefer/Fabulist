@@ -3,9 +3,6 @@ module Fabulist
     def initialize(memory=nil, adapter=nil)
       @r = {}
       @memory = Fabulist.memory
-      @adapter = Fabulist.configuration.adapter_instance
-      @r[:any_model] = @adapter.model_names.join('|')
-      @r[:counting_syllable] = %w(st nd rd th).join('|')
     end
 
     def memory
@@ -15,18 +12,22 @@ module Fabulist
     def adapter
       @adapter ||= Fabulist.configuration.adapter_instance
     end
+
+    def model_names
+      Fabulist.configuration.adapter_instance.model_names.join('|')
+    end
+
+    def counting_syllable
+      %w(st nd rd th).join('|')
+    end
+
   end
 
   class CreateNewMatcher < Fabulist::Matcher
-    def initialize
-      super
-    end
-    def method_missing(method, *args, &block)
-      unless @r[:any_model].empty?
-        if method_name =~ /^(#{@r[:any_model]})$/
-          object = adapter.create($1)
-          memory.append(object)
-          object
+    def method_missing(method_name, *args, &block)
+      unless model_names.empty?
+        if method_name =~ /^(#{model_names})$/
+          create_a_model($1)
         else
           super
         end
@@ -34,6 +35,14 @@ module Fabulist
         super
       end
     end
+
+    private
+    def create_a_model(model_name)
+      object = adapter.create(model_name)
+      memory.append(object)
+      object
+    end
+
   end
 
 
