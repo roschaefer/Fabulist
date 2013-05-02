@@ -5,6 +5,10 @@ module Fabulist
       @memory = Fabulist.memory
     end
 
+    def class_for_name(model_name)
+      model_name.to_s.split('_').map!{ |w| w.capitalize }.join
+    end
+
     def memory
       @memory ||= Memory.new
     end
@@ -52,13 +56,18 @@ module Fabulist
       @index = index
     end
 
-    def method_missing(method, *args, &block)
-      if method_name =~ /^#{COUNTING_SYLLABLE}$/
-        return memory.search_forwards(index)
+    def method_missing(method_name, *args, &block)
+      unless model_names.empty?
+        if method_name =~ /^(#{model_names})$/
+          Fabulist.memory.search_forwards(:class  => $1)
+        else
+          super
+        end
       else
         super
       end
     end
+
   end
 end
 
