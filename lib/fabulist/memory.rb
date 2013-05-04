@@ -48,25 +48,13 @@ module Fabulist
 
   def apply_class_check(list, klass)
     unless klass.nil?
-      if klass.instance_of? String
-        klass = constantize(class_for_name(klass))
-      end
-      list = list.select{|e| e.instance_of? klass}
+      list = list.select{|e| e.class.to_s == camel_case(klass)}
     end
     list
   end
 
-
-  def constantize(class_name)
-    unless /\A(?:::)?([A-Z]\w*(?:::[A-Z]\w*)*)\z/ =~ class_name
-      raise NameError, "#{class_name.inspect} is not a valid constant name!"
-    end
-
-    Object.module_eval("::#{$1}", __FILE__, __LINE__)
-  end
-
-  def class_for_name(model_name)
-    model_name.to_s.split('_').map!{ |w| w.capitalize }.join
+  def camel_case(string)
+    string.to_s.split('_').map{|e| e.capitalize}.join
   end
 
 
