@@ -1,20 +1,6 @@
 require 'fabulist'
-  class ModelDecorator
-
-    DELEGATED = [:is_a?, :kind_of?, :respond_to?, :class,
-      :marshal_dump, :marshal_load,
-      :freeze, :taint, :untaint, :trust, :untrust,
-      :methods, :protected_methods, :public_methods,
-      :object_id,
-      :!, :!=, :==, :===, :eql?, :hash, :<=>,
-      :dup, :clone, :inspect]
-
-    DELEGATED.each do |delegated_method|
-      define_method delegated_method do |*args|
-        @model.send(*(args.unshift(delegated_method)))
-      end
-    end
-
+module Fabulist
+  class ModelDecorator < BasicObject
 
     def initialize(model)
       @model = model
@@ -26,3 +12,4 @@ require 'fabulist'
 
   end
 
+end
