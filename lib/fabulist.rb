@@ -2,7 +2,6 @@ require "fabulist/version"
 require "fabulist/memory"
 require "fabulist/configuration"
 require "fabulist/session"
-require "fabulist/adapter"
 
 module Fabulist
   # ---------------------

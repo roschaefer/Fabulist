@@ -1,24 +1,13 @@
+require 'active_support/inflector'
 module Fabulist
-  class Matcher
-    def initialize(memory=nil, adapter=nil)
-      @r = {}
-      @memory = Fabulist.memory
-    end
+  class Dispatcher
 
-    def class_for_name(model_name)
-      model_name.to_s.split('_').map!{ |w| w.capitalize }.join
-    end
-
-    def memory
-      @memory ||= Memory.new
-    end
-
-    def adapter
-      @adapter ||= Fabulist.configuration.adapter_instance
+    def initialize()
+      @index = index
     end
 
     def model_names
-      Fabulist.configuration.adapter_instance.model_names.join('|')
+      Fabulist.memory.class_names.map(&:underscore).join('|')
     end
 
     def counting_syllable
@@ -29,35 +18,8 @@ module Fabulist
       %w(last previous).join('|')
     end
 
-  end
-
-  class CreateNewMatcher < Fabulist::Matcher
-    def method_missing(method_name, *args, &block)
-      unless model_names.empty?
-        if method_name =~ /^(#{model_names})$/
-          create_a_model($1)
-        else
-          super
-        end
-      else
-        super
-      end
-    end
-
-    private
-    def create_a_model(model_name)
-      object = adapter.create(model_name)
-      memory.append(object)
-      object
-    end
-
-  end
-
-
-  class AlreadyExistsMatcher < Matcher
-    def initialize(index=1)
-      super()
-      @index = index
+    def probable_method
+      '.*'
     end
 
     def method_missing(method_name, *args, &block)
@@ -83,11 +45,6 @@ module Fabulist
         super
       end
     end
-
-    def probable_method
-      '.*'
-    end
-
   end
-end
 
+end

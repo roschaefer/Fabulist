@@ -1,6 +1,5 @@
 require File.join(File.dirname(__FILE__), '..', 'lib', 'fabulist')
 require 'factory_girl'
-require 'fabulist/adapter/factory_girl'
 Dir.glob(File.dirname(__FILE__) + "/factories/*").each do |factory|
   require factory
 end

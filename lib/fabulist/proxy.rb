@@ -1,12 +1,12 @@
 require 'fabulist'
 module Fabulist
-  class ModelDecorator < BasicObject
+  class Proxy < BasicObject
 
     def initialize(model, opts = {})
-      @identifiers = opts
+      @features = opts
       opts.each_pair do |key, value|
-        ModelDecorator.define_method key do |aValue|
-          @identifiers[key] == aValue
+        Proxy.define_method key do |aValue|
+          @features[key] == aValue
         end
       end
       @model = model
@@ -17,7 +17,7 @@ module Fabulist
     end
 
     def respond_to?(method)
-      @identifiers.has_key?(method) || @model.respond_to?(method)
+      @features.has_key?(method) || @model.respond_to?(method)
     end
 
   end

@@ -1,13 +1,13 @@
-require 'fabulist/matcher'
+require 'fabulist/dispatcher'
 module Fabulist
   module Session
 
     def the(index=1)
-      AlreadyExistsMatcher.new(index)
+      Dispatcher.new(index)
     end
 
-    def a_new
-      CreateNewMatcher.new
+    def remember(model)
+      Fabulist.memory.append model
     end
 
     def i

@@ -1,4 +1,4 @@
-require "fabulist/model_decorator"
+require "fabulist/proxy"
 module Fabulist
   class Memory
 
