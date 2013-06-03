@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Fabulist::VERSION
   spec.authors       = ["Robert Schäfer"]
   spec.email         = ["rs@oxon.ch"]
-  spec.description   = %q{ Fabulist provides a ubiquitous language to reference and interact with your domain models}
-  spec.summary       = %q{ Narrate, don't write cucumber step definitions}
+  spec.description   = %q{Keeps track of your created business object. Name your models and tell a nice story about them in your cucumber step definitions.}
+  spec.summary       = %q{Reference business objects from anywhere in your cucumber world.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -30,5 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "yard"
   spec.add_development_dependency "rb-fsevent"
   spec.add_development_dependency "activerecord-nulldb-adapter"
+  spec.add_development_dependency "pry"
 
 end
