@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Fabulist::Dispatcher do
-  let!(:adapter) {Fabulist.configuration.adapter_instance}
   let!(:memory) {Fabulist.memory}
   describe "#method_missing" do
     context "in case of a malformed method name" do
@@ -9,9 +8,6 @@ describe Fabulist::Dispatcher do
     end
     context "when there are models that sound similar, it" do
 
-      before(:each) do
-        adapter.stub(:model_names).and_return(['user','post','role'])
-      end
       subject do
         Fabulist::Dispatcher.new
       end

@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe Fabulist::Session do
 
-
-  let(:model_store) { mock }
-  let(:adapter) { mock }
-
   before(:each) do
     Fabulist.reset
   end
@@ -15,8 +11,6 @@ describe Fabulist::Session do
       include Fabulist::Session
     end
     session = sessionClass.new
-    session.stub(:adapter => adapter)
-    session.stub(:model_store => model_store)
     session
   end
 
@@ -32,15 +26,15 @@ describe Fabulist::Session do
     end
   end
 
-  describe "#a_new" do
-    it "should return a CreateNewMatcher" do
-      subject.a_new.should be_kind_of(Fabulist::CreateNewMatcher)
+  describe "#remember" do
+    it "should store a model in the memory" do
+      expect {subject.remember "Thing"}.to change{Fabulist.memory.history.size}.by(1)
     end
   end
 
   describe "#the" do
-    it "should return a AlreadyExistsMatcher" do
-      subject.the.should be_kind_of(Fabulist::AlreadyExistsMatcher)
+    it "should return a Dispatcher" do
+      subject.the.should be_kind_of(Fabulist::Dispatcher)
     end
   end
 end
