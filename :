@@ -8,7 +8,7 @@ describe Fabulist::Dispatcher do
     end
     context "when there are models that sound similar, it" do
       before(:each) do
-        memory.stub(:class_names).and_return(["User"])
+        memory.should_receive(:class_names).and_return(["User".constantize])
       end
 
       subject do
@@ -42,9 +42,9 @@ describe Fabulist::Dispatcher do
 
       it "should retrieve an instance of the model from the memory" do
         user = mock
-        user.should_receive(:class).exactly(2).times.and_return('User')
+        user.should_receive(:class).and_return('User')
         memory.append(user)
-        subject.user.should equal(user) # here goes the second call to user.class
+        subject.user.should equal(user)
       end
     end
   end

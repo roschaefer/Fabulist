@@ -2,7 +2,7 @@ require 'active_support/inflector'
 module Fabulist
   class Dispatcher
 
-    def initialize()
+    def initialize(index = 1)
       @index = index
     end
 
