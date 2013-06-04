@@ -2,29 +2,28 @@ require "fabulist/proxy"
 module Fabulist
   class Memory
 
+    attr_reader :history, :class_names
+
     def initialize
-      @list = []
+      self.clear
     end
 
     def clear
-      @list = []
+      @history = []
+      @class_names = []
     end
-
-    def history
-      @list
-    end
-
 
     def append(object)
-      @list << object
+      @history << object
+      @class_names << object.class
     end
 
     def search_forwards(options={}, *args)
-      search(@list, options, *args)
+      search(@history, options, *args)
     end
 
     def search_backwards(options={}, *args)
-      search(@list.reverse, options, *args)
+      search(@history.reverse, options, *args)
     end
 
   private

@@ -11,6 +11,22 @@ describe Fabulist::Memory do
         subject.append("A String")
       end.should change(subject.history, :size).by(1)
     end
+
+    it "should notice the class names of the objects" do
+      subject.append "A String"
+      subject.append 12345
+      subject.append /a Regex/
+      subject.append Proc.new {}
+      subject.append :symbol
+      subject.append('and last but not least' => 'a Hash')
+      subject.class_names.should include String
+    end
+
+    it "even with class names itselves" do
+      subject.append String
+      subject.class_names.should include(Class)
+    end
+
   end
   describe "#search_backwards" do
 
