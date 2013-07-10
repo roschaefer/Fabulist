@@ -1,4 +1,3 @@
-require "fabulist/proxy"
 module Fabulist
   class Memory
 

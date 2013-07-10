@@ -13,7 +13,7 @@ module Fabulist
   end
 
   def self.narrator=(model)
-    @narrator = Proxy.new(model)
+    @narrator = model
   end
 
   def self.configure(&block)
