@@ -26,14 +26,14 @@ describe Fabulist::Session do
     end
   end
 
-  describe "#remember" do
+  describe "#memorize" do
     it "stores a model in the memory" do
-      expect {subject.remember "Thing"}.to change{Fabulist.memory.history.size}.by(1)
+      expect {subject.memorize "Thing"}.to change{Fabulist.memory.history.size}.by(1)
     end
   end
 
   describe "#the" do
-    it "return a Dispatcher" do
+    it "returns a Dispatcher" do
       subject.the.should be_kind_of(Fabulist::Dispatcher)
     end
   end

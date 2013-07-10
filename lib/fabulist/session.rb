@@ -6,7 +6,7 @@ module Fabulist
       Dispatcher.new(index)
     end
 
-    def remember(model)
+    def memorize(model)
       Fabulist.memory.append model
     end
 

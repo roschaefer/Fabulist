@@ -27,7 +27,18 @@ describe Fabulist::Memory do
       subject.class_names.should include(Class)
     end
 
+    context "with a 'before memorize' hook" do
+      it "executes the callback"
+    end
+
   end
+
+  describe "#seach_backwards" do
+    context "with a 'after recall' hook" do
+      it "executes the callback"
+    end
+  end
+
   describe "#search_backwards" do
 
     describe "lookup the most recently created objects" do
