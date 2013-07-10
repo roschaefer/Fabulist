@@ -28,7 +28,7 @@ describe Fabulist::Session do
 
   describe "#memorize" do
     it "stores a model in the memory" do
-      expect {subject.memorize "Thing"}.to change{Fabulist.memory.history.size}.by(1)
+      expect {subject.memorize "Thing"}.to change{Fabulist.memory.size}.by(1)
     end
   end
 

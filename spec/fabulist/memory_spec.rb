@@ -10,7 +10,7 @@ describe Fabulist::Memory do
     it "grow the list of tracked objects" do
       lambda do
         subject.append("A String")
-      end.should change(subject.history, :size).by(1)
+      end.should change(subject, :size).by(1)
     end
 
     it "notices the class names of the objects" do
@@ -38,13 +38,37 @@ describe Fabulist::Memory do
         end
       end
 
-      it "executes the callback" do
+      it "#append executes the callback 'before_memorize'" do
         model = mock()
         model.should_receive(:save!).once
         subject.append model
       end
     end
 
+    context "with a 'after recall' hook" do
+      before(:each) do
+        Fabulist.configure do |config|
+          config.after_recall = Proc.new do |model|
+            model.there_you_are!
+            model
+          end
+        end
+      end
+
+      it "#search_forwards executes the callback 'after recall'" do
+        model = mock()
+        model.should_receive(:there_you_are!).once
+        subject.append model
+        subject.search_forwards
+      end
+
+      it "#search_backwards executes the callback 'after recall'" do
+        model = mock()
+        model.should_receive(:there_you_are!).once
+        subject.append model
+        subject.search_backwards
+      end
+    end
   end
 
   describe "#search_backwards" do
@@ -72,10 +96,6 @@ describe Fabulist::Memory do
         subject.append("A String")
         subject.append(1)
         expect{subject.search_backwards(:index  => 2, :class  => String)}.to raise_exception
-      end
-
-      context "with a 'after recall' hook" do
-        it "#seach_backwards executes the callback"
       end
 
     end
@@ -126,9 +146,6 @@ describe Fabulist::Memory do
         subject.search_forwards({:class => String, :condition => 'between?'}, 'qwert', 'qwertz').should eql("qwerty")
       end
 
-      context "with a 'after recall' hook" do
-        it "#seach_forwards executes the callback"
-      end
     end
   end
 end
