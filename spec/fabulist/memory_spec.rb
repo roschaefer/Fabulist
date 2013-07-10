@@ -3,6 +3,7 @@ describe Fabulist::Memory do
 
   after(:each) do
     subject.clear
+    Fabulist.reset
   end
 
   describe "#append" do
@@ -28,15 +29,22 @@ describe Fabulist::Memory do
     end
 
     context "with a 'before memorize' hook" do
-      it "executes the callback"
+      before(:each) do
+        Fabulist.configure do |config|
+          config.before_memorize = Proc.new do |model|
+            model.save!
+            model
+          end
+        end
+      end
+
+      it "executes the callback" do
+        model = mock()
+        model.should_receive(:save!).once
+        subject.append model
+      end
     end
 
-  end
-
-  describe "#seach_backwards" do
-    context "with a 'after recall' hook" do
-      it "executes the callback"
-    end
   end
 
   describe "#search_backwards" do
@@ -64,6 +72,10 @@ describe Fabulist::Memory do
         subject.append("A String")
         subject.append(1)
         expect{subject.search_backwards(:index  => 2, :class  => String)}.to raise_exception
+      end
+
+      context "with a 'after recall' hook" do
+        it "#seach_backwards executes the callback"
       end
 
     end
@@ -114,6 +126,9 @@ describe Fabulist::Memory do
         subject.search_forwards({:class => String, :condition => 'between?'}, 'qwert', 'qwertz').should eql("qwerty")
       end
 
+      context "with a 'after recall' hook" do
+        it "#seach_forwards executes the callback"
+      end
     end
   end
 end

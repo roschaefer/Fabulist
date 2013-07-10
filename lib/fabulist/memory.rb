@@ -13,7 +13,8 @@ module Fabulist
     end
 
     def append(object)
-      @history << object
+      memorized = Fabulist.configuration.before_memorize.call(object)
+      @history << memorized
       @class_names << object.class
     end
 

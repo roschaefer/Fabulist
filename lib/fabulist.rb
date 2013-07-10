@@ -32,8 +32,8 @@ module Fabulist
   end
 
   def self.reset
-    @memory = nil
-    @configuration = nil
+    @memory   = nil
+    @config   = nil
     @narrator = nil
   end
 
