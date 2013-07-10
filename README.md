@@ -2,25 +2,25 @@
 
 <!--TODO: Write a gem description-->
 
-<!--## Installation-->
+<!-- ## Installation-->
 
 <!--Add this line to your application's Gemfile:-->
 
-    <!--gem 'fabulist'-->
+<!--gem 'fabulist'-->
 
 <!--And then execute:-->
 
-    <!--$ bundle-->
+<!-- $ bundle-->
 
 <!--Or install it yourself as:-->
 
-    <!--$ gem install fabulist-->
+<!-- $ gem install fabulist-->
 
-<!--## Usage-->
+<!-- ## Usage-->
 
 <!--TODO: Write usage instructions here-->
 
-<!--## Contributing-->
+<!-- ## Contributing-->
 
 <!--1. Fork it-->
 <!--2. Create your feature branch (`git checkout -b my-new-feature`)-->
