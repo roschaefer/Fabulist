@@ -21,11 +21,24 @@ describe Fabulist::Memory do
       subject.append :symbol
       subject.append('last but not least' => 'a Hash')
       subject.class_names.should include String
+      subject.class_names.should include Proc
+      subject.class_names.should include Fixnum
+      subject.class_names.should include Regexp
+      subject.class_names.should include Symbol
+      subject.class_names.should include Hash
     end
 
     it "notices the class 'Class' of any class" do
       subject.append String
       subject.class_names.should include(Class)
+    end
+
+    it "notices the ancestors of the objects" do
+      subject.append "A String"
+      subject.class_names.should include String
+      subject.class_names.should include Kernel
+      subject.class_names.should include Object
+      subject.class_names.should include BasicObject
     end
 
     context "with a 'before memorize' hook" do

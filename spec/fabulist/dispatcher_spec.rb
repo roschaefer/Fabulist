@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'pry'
 
 describe Fabulist::Dispatcher do
+  after(:each) { Fabulist.reset }
   let!(:memory) {Fabulist.memory}
   describe "#method_missing" do
     context "in case of a malformed method name" do
@@ -37,18 +38,17 @@ describe Fabulist::Dispatcher do
         memory.should_receive(:search_forwards).with(:index  => 1, :class  => 'user', :condition  => 'called', :params  => ['John'])
         subject.user_called('John')
       end
+    end
 
-      it "retrieve an instance of the model from the memory" do
-        user = mock
-        user.should_receive(:class).exactly(2).times.and_return('User')
-        memory.append(user)
-        subject.user.should equal(user) # here goes the second call to user.class
-      end
+    it "retrieve an instance of the model from the memory" do
+      instance = "A String"
+      memory.append(instance)
+      subject.string.should equal(instance)
     end
   end
 
   it "asks the memory for a list of class names" do
-    memory.should_receive(:class_names).and_return([String, Integer, Symbol])
+    memory.should_receive(:class_names).at_least(:once).and_return([String, Integer, Symbol])
     expect {subject.something}.to raise_exception{NoMethodError}
   end
 

@@ -1,7 +1,7 @@
 require "fabulist"
 
 describe Fabulist do
-  before(:each) do
+  after(:each) do
     Fabulist.reset
   end
 

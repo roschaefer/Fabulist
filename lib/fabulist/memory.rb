@@ -19,7 +19,7 @@ module Fabulist
     def append(object)
       memorized = Fabulist.configuration.before_memorize.call(object)
       @the_list << memorized
-      @class_names << object.class
+      @class_names.push( * object.class.ancestors)
     end
 
     def search_forwards(options={}, *args)
@@ -52,7 +52,7 @@ module Fabulist
 
     def apply_class_check(list, klass)
       unless klass.nil?
-        list = list.select{|e| e.class.to_s == camel_case(klass)}
+        list = list.select{|e| e.kind_of? klass.to_s.camelize.safe_constantize}
       end
       list
     end

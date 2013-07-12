@@ -7,7 +7,7 @@ module Fabulist
     end
 
     def model_names
-      Fabulist.memory.class_names.map(&:underscore).join('|')
+      Fabulist.memory.class_names.map(&:to_s).map(&:underscore).join('|')
     end
 
     def counting_syllable
@@ -18,17 +18,17 @@ module Fabulist
       %w(last previous).join('|')
     end
 
-    def probable_method
+    def feature_method
       '.*'
     end
 
     def method_missing(method_name, *args, &block)
       unless model_names.empty?
-        if method_name =~ /^(?:#{counting_syllable})?_?(?:#{previous})_?(#{model_names})_(#{probable_method})$/
+        if method_name =~ /^(?:#{counting_syllable})?_?(?:#{previous})_?(#{model_names})_(#{feature_method})$/
           options = {:index  => @index, :class  => $1, :condition  => $2}
           options[:params] = args unless args.empty?
           Fabulist.memory.search_backwards(options)
-        elsif method_name =~ /^(?:#{counting_syllable})?_?(#{model_names})_(#{probable_method})$/
+        elsif method_name =~ /^(?:#{counting_syllable})?_?(#{model_names})_(#{feature_method})$/
           options = {:index  => @index, :class  => $1, :condition  => $2}
           options[:params] = args unless args.empty?
           Fabulist.memory.search_forwards(options)
