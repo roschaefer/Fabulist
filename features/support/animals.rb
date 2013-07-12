@@ -21,7 +21,7 @@ class Animal
     self.attendants.include? attendant
   end
 
-  def alive
+  def alive?
     self.life
   end
 end
@@ -29,7 +29,7 @@ end
 class Donkey < Animal
   attr_accessor :splinter
   def has_pain?
-    alive && splinter
+    alive? && splinter
   end
 end
 

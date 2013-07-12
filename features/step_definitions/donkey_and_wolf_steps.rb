@@ -12,7 +12,7 @@ When(/^the miserable animal meets the wolf$/) do
 end
 
 When(/^he whines:$/) do |speech|
-  the.last.talk speech
+  the.last_animal.talk speech
 end
 
 When(/^the wolf answers:$/) do |speech|
@@ -20,15 +20,15 @@ When(/^the wolf answers:$/) do |speech|
 end
 
 When(/^he continues:$/) do |speech|
-  the.last.talk speech
+  the.last_animal.talk speech
 end
 
 When(/^he tears apart the miserable animal$/) do
-  the.last.tear_apart the.animal_miserable
+  the.last_animal.tear_apart the.animal_miserable
 end
 
 Then(/^the donkey should have no pain$/) do
-  the.donkey.should have_no_pain
+  the.donkey.should_not have_pain
 end
 
 Then(/^no pitiful animal exists$/) do
