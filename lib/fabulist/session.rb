@@ -1,21 +1,27 @@
-require 'fabulist/dispatcher'
 module Fabulist
   module Session
-
-    def the(index=1)
+    Fabulist.language_configuration.adress.each do |method|
+      define_method method do |index=1|
       Dispatcher.new(index)
+      end
     end
 
-    def memorize(model)
-      Fabulist.memory.append model
+    Fabulist.language_configuration.memorize.each do |method|
+      define_method method do |object|
+        Fabulist.memory.append object
+      end
     end
 
-    def i
-      Fabulist.narrator
+    Fabulist.language_configuration.i.each do |method|
+      define_method method do
+        Fabulist.narrator
+      end
     end
 
-    def i_am(object)
-      Fabulist.narrator= object
+    Fabulist.language_configuration.i_am.each do |method|
+      define_method method do |narrator|
+        Fabulist.narrator= narrator
+      end
     end
   end
 end

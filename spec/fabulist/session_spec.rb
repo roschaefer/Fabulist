@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fabulist/session'
 
 describe Fabulist::Session do
 

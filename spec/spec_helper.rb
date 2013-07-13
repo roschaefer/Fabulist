@@ -1,9 +1,4 @@
 require File.join(File.dirname(__FILE__), '..', 'lib', 'fabulist')
-require 'factory_girl'
-Dir.glob(File.dirname(__FILE__) + "/factories/*").each do |factory|
-  require factory
-end
-
 
 RSpec.configure do |config|
   # == Mock Framework
