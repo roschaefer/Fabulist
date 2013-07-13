@@ -22,30 +22,30 @@ module Fabulist
       @class_names.push( * object.class.ancestors)
     end
 
-    def search_forwards(options={}, *args)
-      search(@the_list, options, *args)
+    def search_forwards(options={})
+      search(@the_list, options)
     end
 
-    def search_backwards(options={}, *args)
-      search(@the_list.reverse, options, *args)
+    def search_backwards(options={})
+      search(@the_list.reverse, options)
     end
 
     private
-    def search(list, opt={}, *args)
+    def search(list, opt={})
       index = opt[:index] || 1
       index -= 1
       result = list
       result = apply_class_check(result, opt[:class])
-      result = apply_condition(result, opt[:condition], *args)
+      result = apply_condition(result, opt[:condition], opt[:params])
       found  = result.at(index)
       raise "No object found" if found.nil?
       recalled = Fabulist.configuration.after_recall.call(found)
       recalled
     end
 
-    def apply_condition(list, condition, *args)
+    def apply_condition(list, condition, args)
       unless condition.nil?
-        list = list.select{|e| e.respond_to? condition and e.__send__(condition, *args)}
+        list = list.select{|e| e.respond_to? condition and e.__send__(condition, * args)}
       end
       list
     end

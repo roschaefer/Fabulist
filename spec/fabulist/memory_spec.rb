@@ -151,12 +151,17 @@ describe Fabulist::Memory do
         subject.append("")
         subject.append("Yooho")
         subject.append("qwerty")
-        subject.search_forwards({:condition => 'end_with?'}, 'ho').should eql("Yooho")
-        subject.search_forwards({:class => Fixnum, :condition => '<'}, 5).should eql(1)
-        subject.search_forwards({:condition => 'empty?'}).should eql("")
-        # why does this fail?
-        #subject.search_forwards(1, {:condition => 'nil?'}).should eql(nil)
-        subject.search_forwards({:class => String, :condition => 'between?'}, 'qwert', 'qwertz').should eql("qwerty")
+        subject.search_forwards(:condition => 'end_with?', :params => ['ho']).should eql("Yooho")
+        subject.search_forwards(:class => Fixnum, :condition => '<', :params => [5]).should eql(1)
+        subject.search_forwards(:condition => 'empty?').should eql("")
+        subject.search_forwards(:class => String, :condition => 'between?', :params => ['qwert', 'qwertz']).should eql("qwerty")
+      end
+
+      it "can search for nil" do
+        pending do
+          subject.append(nil)
+          subject.search_forwards(:condition => 'nil?').should eql(nil)
+        end
       end
 
     end
