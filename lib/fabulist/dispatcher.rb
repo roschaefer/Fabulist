@@ -11,11 +11,11 @@ module Fabulist
     end
 
     def counting_syllable
-      %w(st nd rd th).join('|')
+      Fabulist.language_configuration.counting_syllables.join('|')
     end
 
     def previous
-      %w(last previous).join('|')
+      Fabulist.language_configuration.back.join('|')
     end
 
     def feature_method

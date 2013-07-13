@@ -1,6 +1,7 @@
 require "fabulist/version"
 require "fabulist/memory"
 require "fabulist/configuration"
+require "fabulist/language_configuration"
 require "fabulist/session"
 
 module Fabulist
@@ -24,6 +25,15 @@ module Fabulist
   def self.configuration
     @config ||= Fabulist::Configuration.new
     @config
+  end
+
+  def self.language_configuration
+    @lang_config ||= Fabulist::LanguageConfiguration.new
+    @lang_config
+  end
+
+  def self.language
+    self.language_configuration.language
   end
 
   def self.memory
