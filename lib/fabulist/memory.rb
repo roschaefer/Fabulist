@@ -20,6 +20,7 @@ module Fabulist
       memorized = Fabulist.configuration.before_memorize.call(object)
       @the_list << memorized
       @class_names.push( * object.class.ancestors)
+      @class_names.uniq!
     end
 
     def search_forwards(options={})

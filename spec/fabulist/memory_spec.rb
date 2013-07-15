@@ -7,7 +7,7 @@ describe Fabulist::Memory do
   end
 
   describe "#append" do
-    it "grow the list of tracked objects" do
+    it "grows the list of tracked objects" do
       lambda do
         subject.append("A String")
       end.should change(subject, :size).by(1)
@@ -39,6 +39,11 @@ describe Fabulist::Memory do
       subject.class_names.should include Kernel
       subject.class_names.should include Object
       subject.class_names.should include BasicObject
+    end
+
+    it "does not store class name duplicates" do
+      subject.append "Something"
+      expect{subject.append "Something"}.not_to change{subject.class_names.count}
     end
 
     context "with a 'before memorize' hook" do
