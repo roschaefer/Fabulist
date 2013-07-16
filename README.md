@@ -10,10 +10,6 @@ And then run:
 
     $ bundle install
 
-Or install it yourself as:
-
-    $ gem install fabulist
-
 ## Usage
 
 Fabulist provides a simple API to retrieve objects from an array, depending on what you probably mean. Find objects by class name or any method or simply by insertion order.
