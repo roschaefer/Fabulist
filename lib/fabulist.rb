@@ -5,17 +5,6 @@ require "fabulist/language"
 require "fabulist/dispatcher"
 
 module Fabulist
-  # ---------------------
-  # NARRATOR
-  # ---------------------
-  def self.narrator
-    raise "Don't know who I am!" if @narrator.nil?
-    @narrator
-  end
-
-  def self.narrator=(model)
-    @narrator = model
-  end
 
   def self.configure(&block)
     @config = Fabulist::Configuration.new

@@ -5,16 +5,6 @@ describe Fabulist do
     Fabulist.reset
   end
 
-  it "complain, if he doesn't know what the narrator embodies" do
-    expect{Fabulist.narrator}.to raise_error(RuntimeError, /Don't know who I am/)
-  end
-
-  it "returns the narrator, if specified beforehand" do
-    Fabulist.narrator= "something"
-    Fabulist.narrator.should eql("something")
-    Fabulist.narrator.should be_kind_of(String)
-  end
-
   describe ".configure" do
     it "evaluates the configuration block" do
       Fabulist.configure do |config|

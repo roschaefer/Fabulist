@@ -11,17 +11,5 @@ module Fabulist
         Fabulist.memory.append object
       end
     end
-
-    Fabulist.language.i.each do |method|
-      define_method method do
-        Fabulist.narrator
-      end
-    end
-
-    Fabulist.language.i_am.each do |method|
-      define_method method do |narrator|
-        Fabulist.narrator= narrator
-      end
-    end
   end
 end

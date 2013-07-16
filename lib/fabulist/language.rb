@@ -1,7 +1,7 @@
 module Fabulist
   class Language
-    attr_accessor :i, :i_am
-    attr_reader :get_dispatcher, :title, :append
+    attr_accessor :title
+    attr_reader :get_dispatcher, :append
 
     def initialize
       @title         = "English"
@@ -9,8 +9,6 @@ module Fabulist
       count_backwards  "last", "2nd_last", "3rd_last", "4th_last"
       adress_sth       "the"
       memorize_sth     "memorize"
-      self.i       = * "i"
-      self.i_am    = * "i_am"
     end
 
     def forwards
@@ -22,7 +20,7 @@ module Fabulist
     end
 
     def to_s
-      title
+      self.title
     end
 
     def adress_sth(*args)
