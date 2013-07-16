@@ -138,6 +138,13 @@ describe Fabulist::Memory do
         subject.search_forwards(:condition => :empty?).should equal(empty_string)
       end
 
+      it "trusts only elements, that return true as a value to the condition" do
+        subject.append "true"
+        expect{subject.index("rue")}.to raise_exception
+        expect{ subject.search_backwards(:condition => :index, :params => "rue") }.to raise_exception
+        subject.search_backwards(:condition => :end_with?, :params => "rue").should == "true"
+      end
+
       it "should not raise an error if the object does not understand the condition method" do
         subject.append("")
         subject.append(1)

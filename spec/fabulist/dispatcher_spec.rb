@@ -19,6 +19,25 @@ describe Fabulist::Dispatcher do
       it {expect{described_class.new.any_malformed_method}.to raise_exception{NoMethodError}}
     end
 
+    context "without any given class or method name" do
+      before(:each) { memory.stub(:class_names).and_return(["String"]) }
+
+      it "can search forwards" do
+        memory.should_receive(:search_forwards).with(:index => 2)
+        described_class.new(2).nd
+      end
+
+      it "can search backwards" do
+        memory.should_receive(:search_backwards).with(:index => 3)
+        described_class.new(3).rd_last
+      end
+
+      it "can search backwards, even without a given index" do
+        memory.should_receive(:search_backwards).with(:index => 1)
+        described_class.new.last
+      end
+    end
+
     context "when there are models that sound similar, it" do
       before(:each) do
         memory.stub(:class_names).and_return(["User"])

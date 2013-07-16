@@ -46,7 +46,7 @@ module Fabulist
 
     def apply_condition(list, condition, args)
       unless condition.nil?
-        list = list.select{|e| e.respond_to? condition and e.__send__(condition, * args)}
+        list = list.select{|e| (e.respond_to? condition) && (e.__send__(condition, * args) == true) }
       end
       list
     end
