@@ -17,7 +17,7 @@ module Fabulist
     end
 
     def append(object)
-      memorized = Fabulist.configuration.before_memorize.call(object)
+      memorized = Fabulist.configuration.callbacks[:memorize].call(object)
       @the_list << memorized
       @class_names.push( * object.class.ancestors)
       @class_names.uniq!
@@ -40,7 +40,7 @@ module Fabulist
       result = apply_condition(result, opt[:condition], opt[:params])
       found  = result.at(index)
       raise "No object found" if found.nil?
-      recalled = Fabulist.configuration.after_recall.call(found)
+      recalled = Fabulist.configuration.callbacks[:recall].call(found)
       recalled
     end
 

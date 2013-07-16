@@ -1,15 +1,25 @@
 module Fabulist
   class Configuration
-    attr_accessor :before_memorize, :after_recall
+    attr_reader :callbacks
 
     def initialize
-      self.before_memorize = Proc.new do |model|
+      @callbacks = {}
+      @callbacks[:memorize] = Proc.new do |model|
         model
       end
 
-      self.after_recall = Proc.new do |model|
+      @callbacks[:recall] = Proc.new do |model|
         model
       end
     end
+
+    def before_memorize(&block)
+      @callbacks[:memorize] = block
+    end
+
+    def after_recall(&block)
+      @callbacks[:recall] = block
+    end
+
   end
 end

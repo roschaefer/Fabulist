@@ -49,7 +49,7 @@ describe Fabulist::Memory do
     context "with a 'before memorize' hook" do
       before(:each) do
         Fabulist.configure do |config|
-          config.before_memorize = Proc.new do |model|
+          config.callbacks[:memorize] = Proc.new do |model|
             model.save!
             model
           end
@@ -66,7 +66,7 @@ describe Fabulist::Memory do
     context "with a 'after recall' hook" do
       before(:each) do
         Fabulist.configure do |config|
-          config.after_recall = Proc.new do |model|
+          config.callbacks[:recall] = Proc.new do |model|
             model.there_you_are!
             model
           end
