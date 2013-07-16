@@ -66,7 +66,7 @@ require 'fabulist'
 Fabulist.teach "Deutsch" do |lang|
   lang.adress_sth "der", "die", "das"
   lang.memorize_sth "merke"
-  lang.count_forwards "1te", "2ter", "3ter"
+  lang.count_forwards "1te", "2ter", "3tes"
   lang.count_backwards "letzter", "letztes", "letzte", "2t_letzter", "3t_letztes", "4t_letzte"
 end
 require 'fabulist/session'
