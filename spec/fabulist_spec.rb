@@ -48,6 +48,18 @@ describe Fabulist do
     end
   end
 
+  describe ".teach" do
+    it "teaches the fabulist another language" do
+      Fabulist.teach "Deutsch" do |lang|
+        lang.adress_sth "der", "die", "das"
+        lang.memorize_sth "merke"
+        lang.count_forwards "1te", "2ter", "3ter"
+        lang.count_backwards "letzter", "letztes", "letzte", "2t_letzter", "3t_letztes", "4t_letzte"
+      end
+      Fabulist.language.title.should eq "Deutsch"
+    end
+  end
+
   describe ".memory" do
     it "returns the fabulist's memory" do
       Fabulist.memory.should be_kind_of(Fabulist::Memory)

@@ -27,6 +27,12 @@ module Fabulist
     @config
   end
 
+  def self.teach(title, &block)
+    @lang_config = Fabulist::Language.new
+    @lang_config.instance_eval(&block)
+    @lang_config.title = title
+  end
+
   def self.language
     @lang_config ||= Fabulist::Language.new
     @lang_config
