@@ -1,12 +1,12 @@
 module Fabulist
   module Session
-    Fabulist.language_configuration.adress.each do |method|
+    Fabulist.language_configuration.adress_sth.each do |method|
       define_method method do |index=1|
-      Dispatcher.new(index)
+        Dispatcher.new(index)
       end
     end
 
-    Fabulist.language_configuration.memorize.each do |method|
+    Fabulist.language_configuration.memorize_sth.each do |method|
       define_method method do |object|
         Fabulist.memory.append object
       end
