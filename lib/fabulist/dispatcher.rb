@@ -46,11 +46,11 @@ module Fabulist
     end
 
     def forwards_regexp
-      Fabulist.language_configuration.forwards.join('|')
+      Fabulist.language.forwards.join('|')
     end
 
     def backwards_regexp
-      Fabulist.language_configuration.backwards.join('|')
+      Fabulist.language.backwards.join('|')
     end
 
     def feature_method
