@@ -83,7 +83,7 @@ merke user
 der(3).t_letzte_user_namens? "Peter"
 ```
 
- ## Contributing
+## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
