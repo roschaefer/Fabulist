@@ -43,16 +43,17 @@ When(/^he adds himself to (\d+) sheeps$/) do |number_sheeps|
   memorize TaggedObject.new(result, :result => true)
 end
 
-Then(/^he both results are equal to (\d+)$/) do |number|
+Then(/^both results are equal to (\d+)$/) do |number|
   expect(the(1).st_result.count).to eq number.to_i
   expect(the(2).nd_result.count).to eq number.to_i
 end
 
 Then(/^he asks: "(.*?)"$/) do |question|
-  binding.pry
   the(1).st.talk question
 end
 
 Then(/^he other silly wolves answer "(.*?)"$/) do |answer|
-  the.last_silly_wolves.talk answer
+  the.last_silly_wolves.each do |wolf|
+    wolf.talk "That's right, exactly"
+  end
 end

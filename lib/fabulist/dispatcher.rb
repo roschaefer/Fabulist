@@ -22,10 +22,10 @@ module Fabulist
           Fabulist.memory.search_forwards(:index  => @index, :class  => $1)
         elsif method_name =~ /^(?:#{backwards_regexp})$/
           Fabulist.memory.search_backwards(:index  => @index)
-        elsif method_name =~ /^#{forwards_regexp}$/
+        elsif method_name =~ /^(?:#{forwards_regexp})$/
           Fabulist.memory.search_forwards(:index  => @index)
-        #elsif method_name =~ /^(?:#{counting_syllable})?_?(?:#{previous})_?(#{feature_method})$/
-          #Fabulist.memory.search_backwards(:index  => @index, :condition => $1)
+        elsif method_name =~ /^(?:#{backwards_regexp})_(#{feature_method})$/
+          Fabulist.memory.search_backwards(:index  => @index, :condition => $1)
         elsif method_name =~ /^(?:#{forwards_regexp})?_?(#{feature_method})$/
           Fabulist.memory.search_forwards(:index  => @index, :condition => $1)
         else
