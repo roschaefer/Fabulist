@@ -48,7 +48,8 @@ It is a good idea to represent your narrator as a variable to access it from eve
 You can see an examplary implementation [here](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb).
 
 ## Configuration
-You can configure callbacks to define what happens before the fabulist memorizes an object or recalls it from the memory. Let's say you use ActiveRecord:
+Do you use ActiveRecord and you always want updated models?
+You can configure callbacks to define what happens before the fabulist memorizes an object or recalls it from the memory.
 
 ```ruby
 require 'fabulist'
