@@ -4,15 +4,15 @@
 
 Add this line to your application's Gemfile:
 
-gem 'fabulist', :git => 'git://github.com:teamaker/Fabulist.git'
+    gem 'fabulist', :git => 'git://github.com:teamaker/Fabulist.git'
 
 And then run:
 
- $ bundle install
+    $ bundle install
 
 Or install it yourself as:
 
- $ gem install fabulist
+    $ gem install fabulist
 
 ## Usage
 
@@ -76,10 +76,9 @@ end
 require 'fabulist/session'
 World(Fabulist::Session)
 
-# You will then have access to your objects like this:
-
+###
 Fabulist.language # => "Deutsch"
-
+# You will then have access to your objects like this:
 merke user
 der(3).t_letzte_user_namens? "Peter"
 ```
