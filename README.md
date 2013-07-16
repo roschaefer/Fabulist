@@ -45,7 +45,7 @@ the.user_called? "Peter"  # => user
 
 ## Notes
 It is a good idea to represent your narrator as a variable to access it from everywhere in your cucumber step definitions.
-You can see an examplary implementation (here)[https://github.com/teamaker/Fabulist/blob/master/features/step_definitions/narrator_steps.rb].
+You can see an examplary implementation [here](https://github.com/teamaker/Fabulist/blob/master/features/step_definitions/narrator_steps.rb).
 
 ## Configuration
 You can configure callbacks to define what happens before the fabulist memorizes an object or recalls it from the memory. Let's say you use ActiveRecord:
