@@ -1,5 +1,7 @@
 # Fabulist
 
+Enough of instance variables in your cucumber step definitions? Then maybe this will fit to your needs.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -31,7 +33,6 @@ end
 
 ```
 
-You can then write your step definition as follows:
 
 ```ruby
 # store your object like this
@@ -41,6 +42,10 @@ memorize user
 # and retrieve your object in another step
 the.user_called? "Peter"  # => user
 ```
+
+## Notes
+It is a good idea to represent your narrator as a variable to access it from everywhere in your cucumber step definitions.
+You can see an examplary implementation (here)[https://github.com/teamaker/Fabulist/blob/master/features/step_definitions/narrator_steps.rb].
 
 ## Configuration
 You can configure callbacks to define what happens before the fabulist memorizes an object or recalls it from the memory. Let's say you use ActiveRecord:
