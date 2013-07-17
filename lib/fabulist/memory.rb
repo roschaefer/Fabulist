@@ -1,5 +1,12 @@
 module Fabulist
   class Memory
+    class NoObjectFound < StandardError
+      def initialize(list_size, options)
+        msg = "\nCurrent memory size is #{list_size}\n"
+        options.each {|key_value| msg << key_value.to_s << "\n" }
+        super(msg)
+      end
+    end
 
     attr_reader :the_list, :class_names
 
@@ -19,7 +26,7 @@ module Fabulist
     def append(object)
       memorized = Fabulist.configuration.callbacks[:memorize].call(object)
       @the_list << memorized
-      @class_names.push( * object.class.ancestors)
+      @class_names.push( * memorized.class.ancestors)
       @class_names.uniq!
     end
 
@@ -39,7 +46,7 @@ module Fabulist
       result = apply_class_check(result, opt[:class])
       result = apply_condition(result, opt[:condition], opt[:params])
       found  = result.at(index)
-      raise "No object found" if found.nil?
+      raise NoObjectFound.new(self.the_list.size, opt) if found.nil?
       recalled = Fabulist.configuration.callbacks[:recall].call(found)
       recalled
     end

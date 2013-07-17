@@ -178,4 +178,10 @@ describe Fabulist::Memory do
 
     end
   end
+
+  describe "::NoObjectFound Exception" do
+      specify { expect{ subject.search_forwards(:condition => 'a_method') }.to raise_exception(Fabulist::Memory::NoObjectFound, /a_method/) }
+      specify { expect{ subject.search_forwards(:class => String) }.to raise_exception(Fabulist::Memory::NoObjectFound, /String/) }
+      specify { expect{ subject.search_forwards(:method => 'method', :params => ['one','two']) }.to raise_exception(Fabulist::Memory::NoObjectFound, /\["one", "two"\]/) }
+  end
 end
