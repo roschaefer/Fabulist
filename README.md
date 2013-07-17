@@ -6,7 +6,7 @@ Enough of instance variables in your cucumber step definitions? Then maybe this 
 
 Add this line to your application's Gemfile:
 
-    gem 'fabulist', :git => 'git://github.com:teamaker/Fabulist.git'
+    gem 'fabulist', :git => 'https://github.com/teamaker/Fabulist.git'
 
 And then run:
 
@@ -45,8 +45,10 @@ the.user_called? "Peter"  # => user
 
 ## Notes
 It is a good idea to represent your narrator as a variable to access it from everywhere in your cucumber step definitions.
-You can see an examplary implementation [here](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb).
+You can see an example [here](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb).
 
+If your objects lack the necessary methods to identify them, and you don't want to bloat your production code with test specific implementation, you can *wrap* your objects into a proxy.
+Here you can see an example of a [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) that tags another object with arbitrary attributes. But it's generally better if your wrapper accesses the underlying state of the object, rather than virtual attributes.
 ## Configuration
 Do you use ActiveRecord and you always want updated models?
 You can configure callbacks to define what happens before the fabulist memorizes an object or recalls it from the memory.
