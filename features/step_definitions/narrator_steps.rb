@@ -3,7 +3,7 @@ Given(/^I am tired$/) do
   i.am_tired
 end
 
-Given(/^we have a coffe machine in the hall$/) do
+Given(/^we have a coffee machine in the hall$/) do
   memorize CoffeeMachine.new
 end
 

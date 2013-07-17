@@ -1,6 +1,9 @@
-Feature: Telling a nice Fable as a Story
+Feature: Distinguish objects by their class and its ancestors
+  As a developer
+  I want to keep some objects in mind and distinguish them by their class hierarchy
+  In order to access them more expressively later on
 
-  Scenario: The donkey and the Wolf
+  Scenario: The Donkey and the Wolf
     Given there is the donkey and a wolf
     And the donkey has a splinter in his foot
     When the miserable animal meets the wolf
@@ -11,7 +14,7 @@ Feature: Telling a nice Fable as a Story
     """
     And the wolf answers:
     """
-    Truly, you are. And you make me feel sorry.
+    Truly, you make me feel sorry.
     """
     And he continues:
     """
