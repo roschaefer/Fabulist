@@ -7,41 +7,37 @@ module Fabulist
     end
 
     def method_missing(method_name, *args, &block)
-      unless model_names.empty?
-        if method_name =~ /^(?:#{backwards_regexp})_(#{model_names_regexp})_(#{feature_method})$/
-          options = {:index  => @index, :class  => $1, :condition  => $2}
-          options[:params] = args unless args.empty?
-          Fabulist.memory.search_backwards(options)
-        elsif method_name =~ /^(?:#{forwards_regexp})?_?(#{model_names_regexp})_(#{feature_method})$/
-          options = {:index  => @index, :class  => $1, :condition  => $2}
-          options[:params] = args unless args.empty?
-          Fabulist.memory.search_forwards(options)
-        elsif method_name =~ /^(?:#{backwards_regexp})_(#{model_names_regexp})$/
-          Fabulist.memory.search_backwards(:index  => @index, :class  => $1)
-        elsif method_name =~ /^(?:#{forwards_regexp})?_?(#{model_names_regexp})$/
-          Fabulist.memory.search_forwards(:index  => @index, :class  => $1)
-        elsif method_name =~ /^(?:#{backwards_regexp})$/
-          Fabulist.memory.search_backwards(:index  => @index)
-        elsif method_name =~ /^(?:#{forwards_regexp})$/
-          Fabulist.memory.search_forwards(:index  => @index)
-        elsif method_name =~ /^(?:#{backwards_regexp})_(#{feature_method})$/
-          Fabulist.memory.search_backwards(:index  => @index, :condition => $1)
-        elsif method_name =~ /^(?:#{forwards_regexp})?_?(#{feature_method})$/
-          Fabulist.memory.search_forwards(:index  => @index, :condition => $1)
-        else
-          super
-        end
+      if method_name =~ /^(?:#{backwards_regexp})_(#{class_names_regexp})_(#{feature_method})$/
+        options = {:index  => @index, :class  => $1, :condition  => $2}
+        options[:params] = args unless args.empty?
+        Fabulist.memory.search_backwards(options)
+      elsif method_name =~ /^(?:#{forwards_regexp})?_?(#{class_names_regexp})_(#{feature_method})$/
+        options = {:index  => @index, :class  => $1, :condition  => $2}
+        options[:params] = args unless args.empty?
+        Fabulist.memory.search_forwards(options)
+      elsif method_name =~ /^(?:#{backwards_regexp})_(#{class_names_regexp})$/
+        Fabulist.memory.search_backwards(:index  => @index, :class  => $1)
+      elsif method_name =~ /^(?:#{forwards_regexp})?_?(#{class_names_regexp})$/
+        Fabulist.memory.search_forwards(:index  => @index, :class  => $1)
+      elsif method_name =~ /^(?:#{backwards_regexp})$/
+        Fabulist.memory.search_backwards(:index  => @index)
+      elsif method_name =~ /^(?:#{forwards_regexp})$/
+        Fabulist.memory.search_forwards(:index  => @index)
+      elsif method_name =~ /^(?:#{backwards_regexp})_(#{feature_method})$/
+        Fabulist.memory.search_backwards(:index  => @index, :condition => $1)
+      elsif method_name =~ /^(?:#{forwards_regexp})?_?(#{feature_method})$/
+        Fabulist.memory.search_forwards(:index  => @index, :condition => $1)
       else
         super
       end
     end
 
     private
-    def model_names_regexp
-      model_names.join('|')
+    def class_names_regexp
+      class_names.join('|')
     end
 
-    def model_names
+    def class_names
       Fabulist.memory.class_names.map(&:to_s).map(&:underscore)
     end
 
