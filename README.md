@@ -14,7 +14,7 @@ And then run:
 
 ## Usage
 
-Fabulist provides a simple API to retrieve objects from an array, depending on what you probably mean. Find objects by class name or any method or simply by insertion order.
+Fabulist provides a simple API to retrieve objects from an array, depending on your probable intent. Find objects by class, a method or by insertion order.
 
 Let's say, you have a class like this:
 
@@ -48,7 +48,8 @@ It is a good idea to represent your narrator as a variable to access it from eve
 You can see an example [here](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb).
 
 If your objects lack the necessary methods to identify them, and you don't want to bloat your production code with test specific implementation, you can *wrap* your objects into a proxy.
-Here you can see an example of a [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) that tags another object with arbitrary attributes. But it's generally better if your wrapper accesses the underlying state of the object, rather than virtual attributes.
+Here you can see a [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) class, that tags another object with arbitrary attributes. But it's even better, if your wrapper accesses the underlying state of the object, rather than virtual attributes.
+
 ## Configuration
 Do you use ActiveRecord and you always want updated models?
 You can configure callbacks to define what happens before the fabulist memorizes an object or recalls it from the memory.
@@ -67,15 +68,15 @@ end
 ```
 
 Do your customer speaks another language than english?
-You can fit your step definitions even closer to your step description, just teach the fabulist your language:
+You can fit your step definitions even closer to your feature description, just teach the fabulist your language:
 
 ```ruby
 require 'fabulist'
 Fabulist.teach "Deutsch" do |lang|
-  lang.adress_sth "der", "die", "das"
-  lang.memorize_sth "merke"
-  lang.count_forwards "1te", "2ter", "3tes"
-  lang.count_backwards "letzter", "letztes", "letzte", "2t_letzter", "3t_letztes", "4t_letzte"
+  lang.adress_sth       "der",  "die",  "das"
+  lang.memorize_sth     "merke"
+  lang.count_forwards   "1te",  "2ter",  "3tes"
+  lang.count_backwards  "letzter",  "letztes",  "letzte",  "2t_letzter",  "3t_letztes",  "4t_letzte"
 end
 require 'fabulist/session'
 World(Fabulist::Session)
