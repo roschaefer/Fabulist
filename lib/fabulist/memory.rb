@@ -26,8 +26,7 @@ module Fabulist
     def append(object)
       memorized = Fabulist.configuration.callbacks[:memorize].call(object)
       @the_list << memorized
-      @class_names.push( * memorized.class.ancestors)
-      @class_names.uniq!
+      @class_names |= memorized.class.ancestors
     end
 
     def search_forwards(options={})
