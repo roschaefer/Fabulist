@@ -57,7 +57,7 @@ describe Fabulist::Memory do
       end
 
       it "#append executes the callback 'before_memorize'" do
-        model = mock()
+        model = double()
         model.should_receive(:save!).once
         subject.append model
       end
@@ -74,14 +74,14 @@ describe Fabulist::Memory do
       end
 
       it "#search_forwards executes the callback 'after recall'" do
-        model = mock()
+        model = double()
         model.should_receive(:there_you_are!).once
         subject.append model
         subject.search_forwards
       end
 
       it "#search_backwards executes the callback 'after recall'" do
-        model = mock()
+        model = double()
         model.should_receive(:there_you_are!).once
         subject.append model
         subject.search_backwards
