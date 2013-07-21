@@ -15,8 +15,8 @@ describe Fabulist::Dispatcher do
       expect {subject.something}.to raise_exception{NoMethodError}
     end
 
-    context "in case of a malformed method name" do
-      it {expect{described_class.new.any_malformed_method}.to raise_exception{NoMethodError}}
+    context "in case of a unknown class or method name" do
+      specify {expect{described_class.new.any_malformed_method}.to raise_exception{NoMethodError}}
     end
 
     context "without any given class or method name" do
