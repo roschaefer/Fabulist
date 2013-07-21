@@ -1,6 +1,6 @@
 # Fabulist
 
-Enough of instance variables in your cucumber step definitions? Then maybe this will fit to your needs.
+Write declarative and vivid cucumber features by referencing shared state across multiple steps.
 
 ## Installation
 
@@ -14,9 +14,25 @@ And then run:
 
 ## Usage
 
-Fabulist provides a simple API to retrieve objects from an array, depending on your probable intent. Find objects by class, a method or by insertion order.
+In situations where you write conjunctive steps (ie. share state across several step definitions), it's usual to assign instance variables and work with them in another step.
+When doing so, your step definitions have to know these instance variables and thus are inflexible and tightly coupled. The idea of the fabulist is to reference your objects via certain details that emerge from your cucumber scenario.
 
-Let's say, you have a class like this:
+Therefore, this gem provides a simple api to memorize arbitrary ruby object and to reference them either by class, by a method that returns true or false or just by insertion order.
+
+Let's have a look at this sample scenario:
+
+```cucumber
+Feature: Reference shared objects between multiple step definitions
+As a developer
+I want to show this minmal working example
+In order to demonstrate the main pupose of this gem
+
+Scenario: Call by a name
+  Given I am a user and my name is "John"
+  When someone asks for John
+  Then I will respond
+```
+Just one of this User objects is created, initialised with the name defined by the scenario.
 
 ```ruby
 class User
@@ -32,23 +48,43 @@ class User
 end
 
 ```
-
+And then you can reference your memorized objects with a call that is very close to the actual statement in the cucumber step.
 
 ```ruby
-# store your object like this
-user = User.new("Peter")
-memorize user
+Given(/^I am a user and my name is "(.*?)"$/) do |name|
+  user = User.new(name)
+  memorize user
+end
 
-# and retrieve your object in another step
-the.user_called? "Peter"  # => user
+When(/^someone asks for (.*)$/) do |name|
+  the.object_called? name # => user
+end
 ```
 
-## Notes
-It is a good idea to represent your narrator as a variable to access it from everywhere in your cucumber step definitions.
-You can see an example [here](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb).
+And basically, that's it!
 
-If your objects lack the necessary methods to identify them, and you don't want to bloat your production code with test specific implementation, you can *wrap* your objects into a proxy.
-Here you can see a [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) class, that tags another object with arbitrary attributes. But it's even better, if your wrapper accesses the underlying state of the object, rather than virtual attributes.
+In this case, there would be a plenty of other ways to summon the user:
+
+```ruby
+the(1).st                       # => user
+the.last                        # => user
+the.called?           "John"    # => user
+the.user_called?      "John"    # => user
+the.last_user_called? "John"    # => user
+
+# only this will raise an exception
+the(2).nd_last  # => raise NoObjectFound, because there is only one object in the memory
+```
+
+Cucumber Features should not be described in a vague manner. As a fabulist, you can tell your story very precise with less but meaningful details.
+
+Think about personas. Wouldn't that be nice?
+
+## Notes
+
+If your objects lack the necessary methods to identify them, and you don't want to bloat your production code with test specific implementation, you can just *wrap* your objects into something, that does the job. To mark objects with arbitrary attributes, I use a [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb), for the integration tests of this gem. But it's even better, if your wrapper accesses the underlying state of the object, rather than virtual attributes.
+
+Another idea: Represent the narrator as a variable to access him, see an example [here](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb). You can then literally interact with the things you are talking about in the story.
 
 ## Configuration
 Do you use ActiveRecord and you always want updated models?
