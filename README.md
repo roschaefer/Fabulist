@@ -13,11 +13,13 @@ And then run:
     $ bundle install
 
 ## Usage
+In situations where you write conjunctive steps (ie. share state across several step definitions) it's usual to assign instance variables used by the following steps. When doing so, your step definitions have to know implementation details of each other, thus become inflexible and tightly coupled. In contrast, the fabulist references shared state according to the given input data of the cucumber scenario.
 
-In situations where you write conjunctive steps (ie. share state across several step definitions), it's usual to assign instance variables and work with them in another step.
-When doing so, your step definitions have to know these instance variables and thus are inflexible and tightly coupled. The idea of the fabulist is to reference your objects via certain details that emerge from your cucumber scenario.
+Therefore, this gem provides a simple api to memorize arbitrary ruby object and to reference them either by
 
-Therefore, this gem provides a simple api to memorize arbitrary ruby object and to reference them either by class, by a method that returns true or false or just by insertion order.
+* their class (#kind_of?)
+* any emthod that returns true or false (#respond_to?)
+* the order they were memorized
 
 Let's have a look at this sample scenario:
 
@@ -63,7 +65,7 @@ end
 
 And basically, that's it!
 
-In this case, there would be a plenty of other ways to summon the user:
+In this particular case, there would be a plenty of equivalent ways to summon the user:
 
 ```ruby
 the(1).st                       # => user
@@ -73,12 +75,12 @@ the.user_called?      "John"    # => user
 the.last_user_called? "John"    # => user
 
 # only this will raise an exception
-the(2).nd_last  # => raise NoObjectFound, because there is only one object in the memory
+the(2).nd            # => raises NoObjectFound, because there is only one object in the memory
+the.user_whatsoever  # => raises NoObjectFound, because the user doesn't respond to 'whatsoever'
+the.unknown_class    # => raises NoObjectFound, no class 'unknown_class', here the fabulist would interpret it as a method name
 ```
 
-Cucumber Features should not be described in a vague manner. As a fabulist, you can tell your story very precise with less but meaningful details.
-
-Think about personas. Wouldn't that be nice?
+Cucumber Features should not be described in a vague manner. As a fabulist you can tell a story especially precise with little but meaningful details. Cucumber features written like personas would be a nice use case.
 
 ## Notes
 
