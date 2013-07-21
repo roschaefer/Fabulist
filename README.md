@@ -84,7 +84,7 @@ Don't describe Cucumber Features in a vague manner. As a fabulist you can tell a
 
 ## Hints
 
-Your objects lack the ability methods to say whether they have a particular feature or not? If do not want to bloat your production code with test specific implementation, you can just *wrap* your objects into something that does the job. I use this [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) in order to mark any object with arbitrary data. The tagged object then serves as a proxy for the original object.
+Your objects lack the ability methods to say whether they have a particular feature or not? If do not want to bloat your production code with test specific implementation, you can just *wrap* your objects into something that does the job. I use a [tagged object](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) in order to mark any object with arbitrary data. The tagged object then serves as a proxy for the original object.
 Of cource, if you already have some objects, that encapsulate some state but lacking the necessary methods, let your proxy check the underlying state of the object.
 
 Are your features first-person narrative? Give the [narrator](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb) his own representation. Then you can literally interact with the objects that occur in your story.
@@ -130,7 +130,7 @@ World(Fabulist::Session)
 In this way you can fit your step definition even closer to your feature description.
 
 ```ruby
-# features/german.feature
+# somewhere in your features/step_definitions/...
 Fabulist.language                         # => "Deutsch"
 merke user                                # same as 'memorize' user
 der(3).t_letzte_user_namens? "Peter"      # same as the(3).rd_last_user_namens
