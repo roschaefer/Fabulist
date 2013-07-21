@@ -15,10 +15,10 @@ And then run:
 ## Usage
 In situations where you write conjunctive steps (ie. share state across several step definitions) it's usual to assign instance variables used by the following steps. When doing so, your step definitions have to know implementation details of each other, thus become inflexible and tightly coupled. In contrast, the fabulist references shared state according to the given input data of the cucumber scenario.
 
-Therefore, this gem provides a simple api to memorize arbitrary ruby object and to reference them either by
+Therefore, this gem provides a simple api to memorize arbitrary ruby object and to reference them by:
 
-* their class (#kind_of?)
-* any emthod that returns true or false (#respond_to?)
+* their class
+* any method that returns true or false
 * the order they were memorized
 
 Let's have a look at this sample scenario:
@@ -104,8 +104,12 @@ Fabulist.configure do |config|
 end
 
 ```
+To make the convenience methods 'memorize' and 'the(index).what_ever_you_want' available to your cucumber world, add this line to a file in your ```features/support``` directory:
+```
+require 'fabulist/cucumber'
+```
 
-Do your customer speaks another language than english?
+Your customer doesn't speak english?
 You can fit your step definitions even closer to your feature description, just teach the fabulist your language:
 
 ```ruby
