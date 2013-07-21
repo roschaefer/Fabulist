@@ -84,7 +84,7 @@ Cucumber Features should not be described in a vague manner. As a fabulist you c
 
 ## Notes
 
-If your objects lack the necessary methods to identify them, and you don't want to bloat your production code with test specific implementation, you can just *wrap* your objects into something, that does the job. To mark objects with arbitrary attributes, I use a [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb), for the integration tests of this gem. But it's even better, if your wrapper accesses the underlying state of the object, rather than virtual attributes.
+If your objects lack the necessary methods to identify them, and you don't want to bloat your production code with test specific implementation, you can just *wrap* your objects into something, that does the job. The [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) is an example to tag any object and to serve as a proxy for it. Of cource, accessing the underlying state of the object should be preferred in favor of virtual attributes.
 
 Another idea: Represent the narrator as a variable to access him, see an example [here](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb). You can then literally interact with the things you are talking about in the story.
 
