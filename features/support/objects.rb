@@ -1,3 +1,15 @@
+class User
+  attr_accessor :name
+
+  def initialize(name)
+    self.name = name
+  end
+
+  def called?(name)
+    self.name == name
+  end
+end
+
 class CoffeeMachine
   def has_left(number_of_coffees)
     @coffees = number_of_coffees
