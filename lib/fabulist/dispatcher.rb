@@ -1,4 +1,3 @@
-require 'active_support/inflector'
 module Fabulist
   class Dispatcher
 

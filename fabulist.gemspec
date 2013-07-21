@@ -8,8 +8,13 @@ Gem::Specification.new do |spec|
   spec.version       = Fabulist::VERSION
   spec.authors       = ["Robert Schäfer"]
   spec.email         = ["rs@oxon.ch"]
-  spec.description   = %q{Keeps track of your created business object. Name your models and tell a nice story about them in your cucumber step definitions.}
-  spec.summary       = %q{Reference business objects from anywhere in your cucumber world.}
+  spec.summary       = %q{Write declarative and vivid cucumber features by referencing shared state across multiple steps.}
+  spec.description   = %q{
+This gem provides a simple api to memorize arbitrary ruby objects and reference them by:
+* their class
+* any method that returns true or false
+* the order they were memorized
+}
   spec.homepage      = ""
   spec.license       = "MIT"
 

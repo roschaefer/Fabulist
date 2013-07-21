@@ -1,9 +1,9 @@
+require 'active_support/inflector/methods'
 require "fabulist/version"
 require "fabulist/memory"
 require "fabulist/configuration"
 require "fabulist/language"
 require "fabulist/dispatcher"
-
 module Fabulist
 
   def self.configure(&block)
