@@ -34,7 +34,7 @@ Scenario: Call by a name
   When someone asks for John
   Then I will respond
 ```
-Just one of this User objects is created, initialised with the name defined by the scenario.
+Just one of this user objects is created, initialised with the name defined by the scenario.
 
 ```ruby
 class User
@@ -77,22 +77,24 @@ the.last_user_called? "John"    # => user
 # only this will raise an exception
 the(2).nd            # => raises NoObjectFound, because there is only one object in the memory
 the.user_whatsoever  # => raises NoObjectFound, because the user doesn't respond to 'whatsoever'
-the.unknown_class    # => raises NoObjectFound, no class 'unknown_class', here the fabulist would interpret it as a method name
+the.unknown_class    # => raises NoObjectFound, the fabulist doesn't know the class 'unknown_class' so he believes 'unknown_class' to be a method name
 ```
 
-Cucumber Features should not be described in a vague manner. As a fabulist you can tell a story especially precise with little but meaningful details. Cucumber features written like personas would be a nice use case.
+Don't describe Cucumber Features in a vague manner. As a fabulist you can tell a story very precise with few but meaningful details. Just try to implement your story as a persona. That would be a great use case.
 
-## Notes
+## Hints
 
-If your objects lack the necessary methods to identify them, and you don't want to bloat your production code with test specific implementation, you can just *wrap* your objects into something, that does the job. The [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) is an example to tag any object and to serve as a proxy for it. Of cource, accessing the underlying state of the object should be preferred in favor of virtual attributes.
+Your objects lack the ability methods to say whether they have a particular feature or not? If do not want to bloat your production code with test specific implementation, you can just *wrap* your objects into something that does the job. I use this [TaggedObject](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) in order to mark any object with arbitrary data. The tagged object then serves as a proxy for the original object.
+Of cource, if you already have some objects, that encapsulate some state but lacking the necessary methods, let your proxy check the underlying state of the object.
 
-Another idea: Represent the narrator as a variable to access him, see an example [here](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb). You can then literally interact with the things you are talking about in the story.
+Are your features first-person narrative? Give the [narrator](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb) his own representation. Then you can literally interact with the objects that occur in your story.
 
 ## Configuration
 Do you use ActiveRecord and you always want updated models?
-You can configure callbacks to define what happens before the fabulist memorizes an object or recalls it from the memory.
+You can configure callbacks to define what happens before the fabulist memorizes an object or recalls it from his memory.
 
 ```ruby
+# features/support/fabulist.rb
 require 'fabulist'
 Fabulist.configure do |config|
   config.before_memorize do |object|
@@ -104,15 +106,17 @@ Fabulist.configure do |config|
 end
 
 ```
-To make the convenience methods 'memorize' and 'the(index).what_ever_you_want' available to your cucumber world, add this line to a file in your ```features/support``` directory:
-```
+To make the convenience methods ```memorize``` and ```the(index).what_ever_you_want``` available to your cucumber world, add this line:
+```ruby
+# features/support/fabulist.rb
 require 'fabulist/cucumber'
 ```
 
 Your customer doesn't speak english?
-You can fit your step definitions even closer to your feature description, just teach the fabulist your language:
+Just teach the fabulist your language:
 
 ```ruby
+# features/support/fabulist.rb
 require 'fabulist'
 Fabulist.teach "Deutsch" do |lang|
   lang.adress_sth       "der",  "die",  "das"
@@ -122,12 +126,14 @@ Fabulist.teach "Deutsch" do |lang|
 end
 require 'fabulist/session'
 World(Fabulist::Session)
+```
+In this way you can fit your step definition even closer to your feature description.
 
-###
-Fabulist.language # => "Deutsch"
-# You will then have access to your objects like this:
-merke user
-der(3).t_letzte_user_namens? "Peter"
+```ruby
+# features/german.feature
+Fabulist.language                         # => "Deutsch"
+merke user                                # same as 'memorize' user
+der(3).t_letzte_user_namens? "Peter"      # same as the(3).rd_last_user_namens
 ```
 
 ## Contributing
