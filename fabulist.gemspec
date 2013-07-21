@@ -23,7 +23,7 @@ This gem provides a simple api to memorize arbitrary ruby objects and reference 
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "activesupport-inflector", "~> 0.1.0"
+  spec.add_dependency "active_support", "~> 3.0.0"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
@@ -31,12 +31,6 @@ This gem provides a simple api to memorize arbitrary ruby objects and reference 
   spec.add_development_dependency "cucumber"
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "factory_girl"
-  spec.add_development_dependency "activerecord"
-  spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "yard"
-  spec.add_development_dependency "rb-fsevent"
-  spec.add_development_dependency "activerecord-nulldb-adapter"
   spec.add_development_dependency "pry"
-
 end

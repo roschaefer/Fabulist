@@ -58,10 +58,12 @@ module Fabulist
     end
 
     def apply_class_check(list, klass)
-      unless klass.nil?
-        list = list.select{|e| e.kind_of? klass.to_s.camelize.safe_constantize}
+      begin
+        constant = klass.to_s.camelize.constantize
+        list.select{|e| e.kind_of? constant}
+      rescue NameError
+        list
       end
-      list
     end
 
     def camel_case(string)
