@@ -7,7 +7,7 @@ end
 When(/^someone asks for (.*)$/) do |name|
   # this is the only step where I use instance variables
   # to ensure that both objects are definitely the same
-  @object = the.object_called? name
+  @object = the.object_called name
 end
 
 Then(/^I will respond$/) do

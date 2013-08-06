@@ -44,7 +44,7 @@ class User
     self.name = name
   end
 
-  def called?(name)
+  def called(name)
     self.name == name
   end
 end
@@ -59,7 +59,7 @@ Given(/^I am a user and my name is "(.*?)"$/) do |name|
 end
 
 When(/^someone asks for (.*)$/) do |name|
-  the.object_called? name # => user
+  the.object_called name # => user
 end
 ```
 
@@ -70,9 +70,9 @@ In this particular case, there would be a plenty of equivalent ways to summon th
 ```ruby
 the(1).st                       # => user
 the.last                        # => user
-the.called?           "John"    # => user
-the.user_called?      "John"    # => user
-the.last_user_called? "John"    # => user
+the.called           "John"    # => user
+the.user_called      "John"    # => user
+the.last_user_called "John"    # => user
 
 # only this will raise an exception
 the(2).nd            # => raises NoObjectFound, because there is only one object in the memory

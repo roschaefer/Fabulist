@@ -5,7 +5,7 @@ class User
     self.name = name
   end
 
-  def called?(name)
+  def called(name)
     self.name == name
   end
 end
