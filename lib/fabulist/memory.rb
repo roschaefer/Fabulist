@@ -8,7 +8,7 @@ module Fabulist
       end
     end
 
-    attr_reader :the_list, :class_names
+    attr_reader :the_list
 
     def initialize
       self.clear
@@ -16,7 +16,6 @@ module Fabulist
 
     def clear
       @the_list = []
-      @class_names = []
     end
 
     def size
@@ -26,7 +25,6 @@ module Fabulist
     def append(object)
       memorized = Fabulist.configuration.callbacks[:memorize].call(object)
       @the_list << memorized
-      @class_names |= memorized.class.ancestors
     end
 
     def search_forwards(options={})

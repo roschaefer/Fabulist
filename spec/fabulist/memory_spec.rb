@@ -13,39 +13,6 @@ describe Fabulist::Memory do
       end.should change(subject, :size).by(1)
     end
 
-    it "notices the class names of the objects" do
-      subject.append "A String"
-      subject.append 12345
-      subject.append /a Regex/
-      subject.append Proc.new {}
-      subject.append :symbol
-      subject.append('last but not least' => 'a Hash')
-      subject.class_names.should include String
-      subject.class_names.should include Proc
-      subject.class_names.should include Fixnum
-      subject.class_names.should include Regexp
-      subject.class_names.should include Symbol
-      subject.class_names.should include Hash
-    end
-
-    it "notices the class 'Class' of any class" do
-      subject.append String
-      subject.class_names.should include(Class)
-    end
-
-    it "notices the ancestors of the objects" do
-      subject.append "A String"
-      subject.class_names.should include String
-      subject.class_names.should include Kernel
-      subject.class_names.should include Object
-      subject.class_names.should include BasicObject
-    end
-
-    it "does not store class name duplicates" do
-      subject.append "Something"
-      expect{subject.append "Something"}.not_to change{subject.class_names.count}
-    end
-
     context "with a 'before memorize' hook" do
       before(:each) do
         Fabulist.configure do |config|
