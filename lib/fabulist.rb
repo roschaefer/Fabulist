@@ -1,4 +1,3 @@
-require 'active_support/inflector'
 require "fabulist/version"
 require "fabulist/memory"
 require "fabulist/configuration"
