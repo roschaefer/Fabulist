@@ -15,43 +15,43 @@ Given(/^the small mouse "(.*?)" is romping about$/) do |name|
 end
 
 Given(/^the (.*) catches (.*)$/) do |name1, name2|
-  the.animal_called(name1).catch(the.animal_called(name2))
+  recall(Animal, :called, name1).catch(recall Animal, :called, name2)
 end
 
 When(/^she pleads$/) do |speech|
-  the.last_female.plead(speech)
+  recall(Object, :female).plead(speech)
 end
 
 When(/^(.*) is laughing$/) do |name, speech|
-  the.animal_called(name).talk speech
+  recall(Animal, :called, name).talk speech
 end
 
 When(/^then (.*) just leaves her alone/) do |name|
-  the.animal_called(name).release(the.last_female)
+  recall(Animal, :called, name).release(recall Object, :female)
 end
 
 When(/^(.*) falls into a net trap some days later$/) do |name|
-  the.animal_called(name).is(:trapped)
+  recall(Animal, :called, name).is(:trapped)
 end
 
 When(/^he roars desperately$/) do
-  the.last_male.roar(:how => :desparately)
+  recall(Object, :male).roar(:how => :desparately)
 end
 
 Then(/^(.*) comes to his aid$/) do |name|
-  the.animal_called(name).help(the.last_male)
+  the(Animal, :called, name).help(recall Object, :male)
 end
 
 Then(/^she gnaws the ropes until (.*) is free$/) do |name|
-  while the.animal_called(name).is? :trapped
-    the.last_female.try_to_free(the.animal_called(name))
+  while recall(Animal, :called, name).is? :trapped
+    recall(Object, :female).try_to_free(recall(Animal, :called, name))
   end
 end
 
 Then(/^(.*) thanks (.*) and they become best friends$/) do |name1, name2|
-  the.animal_called(name1).thank(the.animal_called(name2))
-  the.animal_called(name1).friends << the.animal_called(name2)
-  the.animal_called(name2).friends << the.animal_called(name1)
+  recall(Animal, :called, name1).thank(recall(Animal, :called, name2))
+  recall(Animal, :called, name1).friends << recall(Animal, :called, name2)
+  recall(Animal, :called, name2).friends << recall(Animal, :called, name1)
 end
 
 Then(/^sometimes strength is not all, even a small friend can be of great benefit$/) do
@@ -69,39 +69,39 @@ Given(/^there is the donkey and a wolf$/) do
 end
 
 Given(/^the donkey has a splinter in his foot$/) do
-  the.donkey.splinter = true
+  recall(Donkey).splinter = true
 end
 
 When(/^the miserable animal meets the wolf$/) do
-  the.animal_miserable.meets the.wolf
+  recall(Animal, :miserable).meets the.wolf
 end
 
 When(/^he whines:$/) do |speech|
-  the.last_animal.talk speech
+  recall(Animal).talk speech
 end
 
 When(/^the wolf answers:$/) do |speech|
-  the.last_wolf.talk speech
+  recall(Wolf).talk speech
 end
 
 When(/^he continues:$/) do |speech|
-  the.last_animal.talk speech
+  recall(Animal).talk speech
 end
 
 When(/^he tears apart the miserable animal$/) do
-  the.last_animal.tear_apart the.animal_miserable
+  recall(Animal).tear_apart recall(Animal, :miserable)
 end
 
 Then(/^the donkey should have no pain$/) do
-  the.donkey.should_not have_pain
+  recall(Donkey).should_not have_pain
 end
 
 Then(/^no pitiful animal exists$/) do
-  expect { the.pitiful }.to raise_exception
+  expect { recall(Object, :pitiful) }.to raise_exception
 end
 
 Then(/^now the donkey is not alive anymore$/) do
-  the.donkey.should_not be_alive
+  recall(Donkey).should_not be_alive
 end
 
 
@@ -132,26 +132,26 @@ Given(/^they have stolen (\d+) sheeps$/) do |number_sheeps|
 end
 
 When(/^the smart wolf suggest to equitably share the loot$/) do
-  the.wolf_that_is(:smart).talk "Let us share the loot equitably"
+  recall(Wolf, :that_is, :smart).talk "Let us share the loot equitably"
 end
 
 When(/^the others ask how to do that$/) do
-  the.silly_wolves.each do |wolf|
+  recall(Object, :silly_wolves).each do |wolf|
     wolf.talk "How to do that?"
   end
 end
 
 When(/^the smart suggests to divide by (\d+)$/) do |number|
-  the.wolf_that_is(:smart).talk "Let us divide by #{number}"
+  recall(Wolf, :that_is, :smart).talk "Let us divide by #{number}"
 end
 
 When(/^he adds (\d+) wolves to one sheep$/) do |number_wolves|
-  result = the.silly_wolves.first(number_wolves.to_i).push(the.sheeps.first)
+  result = recall(Object, :silly_wolves).first(number_wolves.to_i).push(recall(Object, :sheeps).first)
   memorize TaggedObject.new(result, :result => true)
 end
 
 When(/^he adds himself to (\d+) sheeps$/) do |number_sheeps|
-  result = the.sheeps.last(number_sheeps.to_i).push(the.wolf_that_is(:smart))
+  result = recall(Object, :sheeps).last(number_sheeps.to_i).push(recall(Wolf, :that_is, :smart))
   memorize TaggedObject.new(result, :result => true)
 end
 
@@ -165,7 +165,7 @@ Then(/^he asks: "(.*?)"$/) do |question|
 end
 
 Then(/^he other silly wolves answer "(.*?)"$/) do |answer|
-  the.last_silly_wolves.each do |wolf|
+  recall(Object, :silly_wolves).each do |wolf|
     wolf.talk "That's right, exactly"
   end
 end

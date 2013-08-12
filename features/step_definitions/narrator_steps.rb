@@ -8,21 +8,21 @@ Given(/^we have a coffee machine in the hall$/) do
 end
 
 Given(/^it has (\d+) coffee left$/) do |number_coffees|
-  the.coffee_machine.has_left(number_coffees.to_i)
+  recall(CoffeeMachine).has_left(number_coffees.to_i)
 end
 
 When(/^I insert (\d+)\$ into the machine$/) do |amount|
-  i.interact(:action => :insert, :params => amount.to_i, :with => the.coffee_machine)
+  i.interact(:action => :insert, :params => amount.to_i, :with => recall(CoffeeMachine))
 end
 
 When(/^I press its coffee button$/) do
-  i.interact(:action => :push, :with => the.coffee_machine.button)
+  i.interact(:action => :push, :with => recall(CoffeeMachine).button)
 end
 
 Then(/^it will serve me a coffe$/) do
-  the.coffee_machine.should have_served_a_coffee(:to => me)
+  recall(CoffeeMachine).should have_served_a_coffee(:to => me)
 end
 
 Then(/^it has no coffees left$/) do
-  the.coffee_machine.should_not have_coffees_left
+  recall(CoffeeMachine).should_not have_coffees_left
 end
