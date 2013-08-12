@@ -50,7 +50,7 @@ class User
 end
 
 ```
-And then you can reference your memorized objects with a call that is very close to the actual statement in the cucumber step.
+And you can keep track of your domain models with ```memorize``` and ```recall```:
 
 ```ruby
 Given(/^I am a user and my name is "(.*?)"$/) do |name|
@@ -59,7 +59,7 @@ Given(/^I am a user and my name is "(.*?)"$/) do |name|
 end
 
 When(/^someone asks for (.*)$/) do |name|
-  the.object_called name # => user
+  recall Object, :called, name
 end
 ```
 
@@ -68,16 +68,13 @@ And basically, that's it!
 In this particular case, there would be a plenty of equivalent ways to summon the user:
 
 ```ruby
-the(1).st                       # => user
-the.last                        # => user
-the.called           "John"    # => user
-the.user_called      "John"    # => user
-the.last_user_called "John"    # => user
+recall                         # => user
+recall User, :called, "John"   # => user
+recall Object, :called, "John" # => user
 
 # only this will raise an exception
-the(2).nd            # => raises NoObjectFound, because there is only one object in the memory
-the.user_whatsoever  # => raises NoObjectFound, because the user doesn't respond to 'whatsoever'
-the.unknown_class    # => raises NoObjectFound, the fabulist doesn't know the class 'unknown_class' so he believes 'unknown_class' to be a method name
+recall User, :called, "Karl" # => raises NoObjectFound
+recall User, :whatsoever     # => raises NoObjectFound, because the user doesn't respond to 'whatsoever'
 ```
 
 Don't describe Cucumber Features in a vague manner. As a fabulist you can tell a story very precise with few but meaningful details. Just try to implement your story as a persona. That would be a great use case.
@@ -106,7 +103,7 @@ Fabulist.configure do |config|
 end
 
 ```
-To make the convenience methods ```memorize``` and ```the(index).what_ever_you_want``` available to your cucumber world, add this line:
+To make the convenience methods ```memorize``` and ```recall``` available to your cucumber world, add this line:
 ```ruby
 # features/support/fabulist.rb
 require 'fabulist/cucumber'
