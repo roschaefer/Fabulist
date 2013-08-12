@@ -1,7 +1,7 @@
 module Fabulist
   module Session
-    def the(index=1)
-      Dispatcher.new(index)
+    def recall(klass=Object, method_name=nil, * args)
+      Fabulist.memory.search_forwards(:class => klass, :condition => method_name, :params => args)
     end
 
     def memorize(object)

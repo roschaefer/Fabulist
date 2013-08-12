@@ -39,7 +39,7 @@ When(/^he roars desperately$/) do
 end
 
 Then(/^(.*) comes to his aid$/) do |name|
-  the(Animal, :called, name).help(recall Object, :male)
+  recall(Animal, :called, name).help(recall Object, :male)
 end
 
 Then(/^she gnaws the ropes until (.*) is free$/) do |name|
@@ -73,7 +73,7 @@ Given(/^the donkey has a splinter in his foot$/) do
 end
 
 When(/^the miserable animal meets the wolf$/) do
-  recall(Animal, :miserable).meets the.wolf
+  recall(Animal, :miserable).meets recall(Wolf)
 end
 
 When(/^he whines:$/) do |speech|
@@ -89,7 +89,7 @@ When(/^he continues:$/) do |speech|
 end
 
 When(/^he tears apart the miserable animal$/) do
-  recall(Animal).tear_apart recall(Animal, :miserable)
+  recall(Wolf).tear_apart recall(Animal, :miserable)
 end
 
 Then(/^the donkey should have no pain$/) do
