@@ -147,21 +147,21 @@ end
 
 When(/^he adds (\d+) wolves to one sheep$/) do |number_wolves|
   result = recall(Object, :silly_wolves).first(number_wolves.to_i).push(recall(Object, :sheeps).first)
-  memorize TaggedObject.new(result, :result => true)
+  memorize TaggedObject.new(result, :result => :first)
 end
 
 When(/^he adds himself to (\d+) sheeps$/) do |number_sheeps|
   result = recall(Object, :sheeps).last(number_sheeps.to_i).push(recall(Wolf, :that_is, :smart))
-  memorize TaggedObject.new(result, :result => true)
+  memorize TaggedObject.new(result, :result => :second)
 end
 
 Then(/^both results are equal to (\d+)$/) do |number|
-  expect(the(1).st_result.count).to eq number.to_i
-  expect(the(2).nd_result.count).to eq number.to_i
+  expect(recall(Object, :result, :first).count).to eq number.to_i
+  expect(recall(Object, :result, :second).count).to eq number.to_i
 end
 
 Then(/^he asks: "(.*?)"$/) do |question|
-  the(1).st.talk question
+  recall(Wolf).talk question
 end
 
 Then(/^he other silly wolves answer "(.*?)"$/) do |answer|
