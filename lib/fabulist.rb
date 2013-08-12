@@ -2,7 +2,6 @@ require 'active_support/inflector'
 require "fabulist/version"
 require "fabulist/memory"
 require "fabulist/configuration"
-require "fabulist/language"
 require "fabulist/dispatcher"
 module Fabulist
 
@@ -14,17 +13,6 @@ module Fabulist
   def self.configuration
     @config ||= Fabulist::Configuration.new
     @config
-  end
-
-  def self.teach(title, &block)
-    @lang_config = Fabulist::Language.new
-    @lang_config.instance_eval(&block)
-    @lang_config.title = title
-  end
-
-  def self.language
-    @lang_config ||= Fabulist::Language.new
-    @lang_config
   end
 
   def self.memory

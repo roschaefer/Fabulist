@@ -41,11 +41,11 @@ module Fabulist
     end
 
     def forwards_regexp
-      Fabulist.language.forwards.join('|')
+     ["st", "nd", "rd", "th"].join('|')
     end
 
     def backwards_regexp
-      Fabulist.language.backwards.join('|')
+     ["last", "st_last", "nd_last", "rd_last", "th_last"].join('|')
     end
 
     def feature_method

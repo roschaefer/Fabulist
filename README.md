@@ -111,31 +111,6 @@ To make the convenience methods ```memorize``` and ```the(index).what_ever_you_w
 # features/support/fabulist.rb
 require 'fabulist/cucumber'
 ```
-
-Your customer doesn't speak english?
-Just teach the fabulist your language:
-
-```ruby
-# features/support/fabulist.rb
-require 'fabulist'
-Fabulist.teach "Deutsch" do |lang|
-  lang.adress_sth       "der",  "die",  "das"
-  lang.memorize_sth     "merke"
-  lang.count_forwards   "1te",  "2ter",  "3tes"
-  lang.count_backwards  "letzter",  "letztes",  "letzte",  "2t_letzter",  "3t_letztes",  "4t_letzte"
-end
-require 'fabulist/session'
-World(Fabulist::Session)
-```
-In this way you can fit your step definition even closer to your feature description.
-
-```ruby
-# somewhere in your features/step_definitions/...
-Fabulist.language                         # => "Deutsch"
-merke user                                # same as 'memorize' user
-der(3).t_letzte_user_namens? "Peter"      # same as the(3).rd_last_user_namens
-```
-
 ## Contributing
 
 1. Fork it
