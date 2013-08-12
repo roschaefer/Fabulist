@@ -20,10 +20,4 @@ describe Fabulist::Session do
       expect {subject.memorize "Thing"}.to change{Fabulist.memory.size}.by(1)
     end
   end
-
-  describe "#the" do
-    it "returns a Dispatcher" do
-      subject.the.should be_kind_of(Fabulist::Dispatcher)
-    end
-  end
 end
