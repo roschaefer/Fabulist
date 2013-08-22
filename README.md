@@ -17,9 +17,9 @@ In situations where you write conjunctive steps (ie. share state across several 
 
 Therefore, this gem provides a simple api to memorize arbitrary ruby object and to reference them by:
 
-* their class
-* any method that returns ```true``` or ```false```
-* the order they were memorized
+1. class
+2. any predicate
+3. insertion order
 
 Let's have a look at this sample scenario:
 
@@ -62,7 +62,7 @@ When(/^someone asks for (.*)$/) do |name|
 end
 ```
 
-That's it!
+That's it.
 
 ```ruby
 #In this particular case, other ways to call the the user would be:
@@ -76,8 +76,8 @@ recall User, :whatsoever     # => raises NoObjectFound, because the user doesn't
 ```
 ## Hints
 
-Your objects lack the ability methods to say whether they have a particular feature or not? If do not want to bloat your production code with test specific implementation, you can just *wrap* your objects into something that does the job. I use a [tagged object](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) in order to mark any object with arbitrary data. The tagged object then serves as a proxy for the original object.
-Of cource, if you already have some objects, that encapsulate some state but lacking the necessary methods, let your proxy check the underlying state of the object.
+Your objects lack the ability methods to say whether they have a particular feature or not? If do not want to bloat your production code with test specific implementation, try to *wrap* your objects. In the [features](https://github.com/teamaker/Fabulist/tree/master/features) I use a [tagged object](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) to mark arbitrary objects. The tagged object serves as a proxy for the original object.
+If your objects encapsulate some state but lack the necessary methods, a proxy should check the underlying state of the object.
 
 Are your features first-person narrative? Give the [narrator](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb) his own representation. Then you can literally interact with the objects that occur in your story.
 
