@@ -18,7 +18,7 @@ In situations where you write conjunctive steps (ie. share state across several 
 Therefore, this gem provides a simple api to memorize arbitrary ruby object and to reference them by:
 
 * their class
-* any method that returns true or false
+* any method that returns ```true``` or ```false```
 * the order they were memorized
 
 Let's have a look at this sample scenario:
