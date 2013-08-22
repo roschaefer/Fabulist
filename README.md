@@ -104,6 +104,11 @@ Fabulist.configure do |config|
 end
 
 ```
+## LoC
+➜  Fabulist git:(master) ✗ git rev-parse HEAD
+8e528dba9100648c523cd4791bb865703a9fe2ae
+➜  Fabulist git:(master) ✗ find lib | grep ".rb$" | xargs cat | wc -l  
+     117
 ## Contributing
 
 1. Fork it
