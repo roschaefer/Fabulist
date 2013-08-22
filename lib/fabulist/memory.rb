@@ -56,16 +56,10 @@ module Fabulist
     end
 
     def apply_class_check(list, klass)
-      begin
-        constant = klass.to_s.camelize.constantize
-        list.select{|e| e.kind_of? constant}
-      rescue NameError
-        list
+      unless klass.nil?
+        list = list.select{|e| e.kind_of? klass}
       end
-    end
-
-    def camel_case(string)
-      string.to_s.split('_').map{|e| e.capitalize}.join
+      list
     end
   end
 end

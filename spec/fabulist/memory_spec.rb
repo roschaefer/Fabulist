@@ -142,15 +142,6 @@ describe Fabulist::Memory do
           subject.search_forwards(:condition => 'nil?').should eql(nil)
         end
       end
-
-      it "raises no NameError if the class is unknown" do
-        begin
-          subject.append("something")
-          subject.search_forwards(:class => "Blargle")
-        rescue Fabulist::Memory::NoObjectFound
-          # alright
-        end
-      end
     end
   end
 
