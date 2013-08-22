@@ -27,19 +27,10 @@ module Fabulist
       @the_list << memorized
     end
 
-    def search_forwards(options={})
-      search(@the_list, options)
-    end
-
-    def search_backwards(options={})
-      search(@the_list.reverse, options)
-    end
-
-    private
-    def search(list, opt={})
+    def search(opt={})
       index = opt[:index] || 1
       index -= 1
-      result = list
+      result = @the_list.reverse
       result = apply_class_check(result, opt[:class])
       result = apply_condition(result, opt[:condition], opt[:params])
       raise NoObjectFound.new(self.the_list.size, opt) if result.size == index
@@ -48,6 +39,7 @@ module Fabulist
       recalled
     end
 
+    private
     def apply_condition(list, condition, args)
       unless condition.nil?
         list = list.select{|e| (e.respond_to? condition) && (e.__send__(condition, * args) == true) }
