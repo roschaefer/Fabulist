@@ -34,7 +34,6 @@ Scenario: Call by a name
   When someone asks for John
   Then I will respond
 ```
-Just one of this user objects is created, initialised with the name defined by the scenario.
 
 ```ruby
 class User
@@ -50,7 +49,7 @@ class User
 end
 
 ```
-And you can keep track of your domain models with ```memorize``` and ```recall```:
+You can keep track of your domain models with ```memorize``` and ```recall```:
 
 ```ruby
 Given(/^I am a user and my name is "(.*?)"$/) do |name|
@@ -65,9 +64,8 @@ end
 
 That's it!
 
-*Hint: In this particular case, other ways to call the the user would be:*
-
 ```ruby
+#In this particular case, other ways to call the the user would be:
 recall                         # => user
 recall User, :called, "John"   # => user
 
