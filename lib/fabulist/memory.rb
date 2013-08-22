@@ -31,27 +31,16 @@ module Fabulist
       index = opt[:index] || 1
       index -= 1
       result = @the_list.reverse
-      result = apply_class_check(result, opt[:class])
-      result = apply_condition(result, opt[:condition], opt[:params])
+      klass, condition, args  = opt[:class], opt[:condition], opt[:params]
+      unless klass.nil?
+        result = result.select{|e| e.kind_of? klass}
+      end
+      unless condition.nil?
+        result = result.select{|e| (e.respond_to? condition) && (e.__send__(condition, * args) == true) }
+      end
       raise NoObjectFound.new(self.the_list.size, opt) if result.size == index
       found  = result.at(index)
-      recalled = Fabulist.configuration.callbacks[:recall].call(found)
-      recalled
-    end
-
-    private
-    def apply_condition(list, condition, args)
-      unless condition.nil?
-        list = list.select{|e| (e.respond_to? condition) && (e.__send__(condition, * args) == true) }
-      end
-      list
-    end
-
-    def apply_class_check(list, klass)
-      unless klass.nil?
-        list = list.select{|e| e.kind_of? klass}
-      end
-      list
+      Fabulist.configuration.callbacks[:recall].call(found)
     end
   end
 end
