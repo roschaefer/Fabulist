@@ -76,7 +76,7 @@ recall User, :whatsoever     # => raises NoObjectFound, because the user doesn't
 ```
 ## Hints
 
-Your objects lack the ability methods to say whether they have a particular feature or not? If do not want to bloat your production code with test specific implementation, try to *wrap* your objects. In the [features](https://github.com/teamaker/Fabulist/tree/master/features) I use a [tagged object](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) to mark arbitrary objects. The tagged object serves as a proxy for the original object.
+Your objects lack the ability methods to say whether they have a particular feature or not? If you don't want to bloat your production code with test specific implementation, try to *wrap* your objects. In the [features](https://github.com/teamaker/Fabulist/tree/master/features) I use a [tagged object](https://github.com/teamaker/Fabulist/blob/master/features/support/tagged_object.rb) to mark arbitrary objects. The tagged object serves as a proxy for the original object.
 If your objects encapsulate some state but lack the necessary methods, a proxy should check the underlying state of the object.
 
 Are your features first-person narrative? Give the [narrator](https://github.com/teamaker/Fabulist/blob/master/features/support/narrator.rb) his own representation. Then you can literally interact with the objects that occur in your story.
