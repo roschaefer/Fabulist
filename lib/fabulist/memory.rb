@@ -42,8 +42,8 @@ module Fabulist
       result = list
       result = apply_class_check(result, opt[:class])
       result = apply_condition(result, opt[:condition], opt[:params])
+      raise NoObjectFound.new(self.the_list.size, opt) if result.size == index
       found  = result.at(index)
-      raise NoObjectFound.new(self.the_list.size, opt) if found.nil?
       recalled = Fabulist.configuration.callbacks[:recall].call(found)
       recalled
     end

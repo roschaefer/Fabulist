@@ -137,10 +137,8 @@ describe Fabulist::Memory do
       end
 
       it "can search for nil" do
-        pending do
-          subject.append(nil)
-          subject.search_forwards(:condition => 'nil?').should eql(nil)
-        end
+        subject.append(nil)
+        subject.search_forwards(:condition => 'nil?').should eql(nil)
       end
     end
   end
